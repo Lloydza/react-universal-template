@@ -36,12 +36,15 @@ module.exports = {
             }
         }, {
             test: /\.(css|scss|sass)$/,
-            exclude: /node_modules/,
-            loader: 'css-loader',
-            options: {
-                modules: true,
-                localIdentName: '[name]--[local]--[hash:base64:5]'
-            }
+            loader: ExtractTextPlugin.extract(
+                {
+                  loader: 'css-loader',
+                  query: {
+                    modules: true,
+                    localIdentName: '[name]--[local]--[hash:base64:5]'
+                  }
+                }
+            )
         }]
     },
 
