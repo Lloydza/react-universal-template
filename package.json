@@ -10,8 +10,12 @@
     "build-dev-server": "webpack -d --config webpack.config.server.js --watch",
     "run-dev-server": "nodemon build/server.js  --watch build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Lloydza/react-universal-template.git"
+  },
   "author": "Lloyd Gray",
-  "homepage": "",
+  "homepage": "https://github.com/Lloydza/react-universal-template",
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
