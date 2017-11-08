@@ -12,8 +12,9 @@ export default function handleRender(req, res) {
   // Catch any request for static files
   var matchStyles = matchPath(pathToMatch, '/styles.css');
   var matchBundle = matchPath(pathToMatch, '/bundle.js');
+  var matchVendorBundle = matchPath(pathToMatch, '/vendor.bundle.js');
   var matchFavIcon = matchPath(pathToMatch, '/favicon.ico');
-  if ((matchStyles && matchStyles.isExact) || (matchBundle && matchBundle.isExact) || (matchFavIcon && matchFavIcon.isExact)) {
+  if ((matchStyles && matchStyles.isExact) || (matchBundle && matchBundle.isExact) || (matchVendorBundle && matchVendorBundle.isExact) || (matchFavIcon && matchFavIcon.isExact)) {
     res.sendStatus(200);
     return;
   }
