@@ -16,9 +16,9 @@ module.exports = {
 
     resolve: {
         alias: {
-            '~': path.join(__dirname, './src/app')
-        },
-        extensions: ['.js', '.jsx']
+            'react': 'preact-compat',
+            'react-dom': 'preact-compat'
+        }
     },
 
     target: 'node',

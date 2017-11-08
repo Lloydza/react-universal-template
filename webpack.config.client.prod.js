@@ -8,7 +8,7 @@ module.exports = {
    
     entry: {
         app: path.join(__dirname, './src/app/index.js'),
-        vendor: ["preact", "preact-compat", "react", "react-dom", "react-router", "react-router-dom", "redux", "redux-thunk", "react-redux", "history", "babel-polyfill", "isomorphic-fetch"]
+        vendor: ["preact", "preact-compat", "react-router", "react-router-dom", "redux", "redux-thunk", "react-redux", "history", "babel-polyfill", "isomorphic-fetch"]
     },
 
     output: {
