@@ -14,4 +14,4 @@ A template for building react universal websites
 
 You can now access localhost on port 3002
 
-NOTE: For production, type "npm run postinstall", followed by "npm start" ("postinstall" is automatically run by Heroku)
+NOTE: For production, type "npm run postinstall", followed by "npm start" (These commands are automatically run in succession by Heroku)
