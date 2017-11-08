@@ -7,7 +7,7 @@ module.exports = {
    
     entry: {
         app: path.join(__dirname, './src/app/index.js'),
-        vendor: ["react", "react-dom", "react-router", "react-router-dom", "redux", "redux-thunk", "react-redux", "history", "babel-polyfill", "isomorphic-fetch"]
+        vendor: ["preact", "preact-compat", "react", "react-dom", "react-router", "react-router-dom", "redux", "redux-thunk", "react-redux", "history", "babel-polyfill", "isomorphic-fetch"]
     },
 
     output: {
@@ -20,9 +20,9 @@ module.exports = {
 
     resolve: {
         alias: {
-            '~': path.join(__dirname, './src/app')
-        },
-        extensions: ['.js', '.jsx']
+            'react': 'preact-compat',
+            'react-dom': 'preact-compat'
+        }
     },
 
     target: 'web',
