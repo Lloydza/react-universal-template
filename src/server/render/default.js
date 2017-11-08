@@ -21,7 +21,7 @@ export default function renderDefaultPage(html, preloadedState) {
           window.envLevel = ${process.env.ENVIRONMENT_LEVEL || 1};
           window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')};
         </script>
-        <script src="vendor.bundle.js"></script>
+        <script src="/vendor.bundle.js"></script>
         <script src="/bundle.js"></script>
       </body>
     </html>
