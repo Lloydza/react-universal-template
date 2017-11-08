@@ -6,7 +6,10 @@ const spreadOperator = require('babel-plugin-transform-object-rest-spread');
 
 module.exports = {
    
-    entry:  path.join(__dirname, './src/app/index.js'),
+    entry: {
+        app: path.join(__dirname, './src/app/index.js'),
+        vendor: ["react", "react-dom", "react-router", "react-router-dom", "redux", "redux-thunk", "react-redux", "history", "babel-polyfill", "isomorphic-fetch"]
+    },
 
     output: {
         path: path.join(__dirname, './build'),
@@ -49,6 +52,7 @@ module.exports = {
     },
 
     plugins: [
+        new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
         new webpack.LoaderOptionsPlugin({
             debug: false
         }),
