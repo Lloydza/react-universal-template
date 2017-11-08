@@ -52,7 +52,10 @@ module.exports = {
             debug: true
         }),
         new webpack.DefinePlugin({
-            ONSERVER: false
+            ONSERVER: false,
+            'process.env': {
+                NODE_ENV: JSON.stringify('development')
+            }
         }),
         new ExtractTextPlugin({
             filename: 'styles.css',
