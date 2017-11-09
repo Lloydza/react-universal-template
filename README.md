@@ -1,5 +1,5 @@
 # react-universal-template
-A React+Node template for building react universal websites. It is actually a working example with a skeleton framework in place (a couple pages, a few css classes, redux, etc). The goal here is to get a performant server-side rendered (universal) web app template that you can copy and paste to hit the ground running on a new project. It assumes you have a basic understanding of [react](https://reactjs.org/), [node](https://nodejs.org/en/), and [webpack](https://webpack.js.org/concepts/).
+A React+Node template for building react universal websites. It is actually a working example with a skeleton framework in place (a couple pages, a few css classes, redux, etc). The goal here is to get a performant **server-side rendered** (universal) single page web app template that you can copy and paste to hit the ground running on a new project. It assumes you have a basic understanding of [react](https://reactjs.org/), [node](https://nodejs.org/en/), and [webpack](https://webpack.js.org/concepts/).
 
 ### TO RUN:
 
