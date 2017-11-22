@@ -8,8 +8,10 @@ import {
 
 class HandleStart extends React.Component {
   componentDidMount() {
-    var currentRoute = getHistory().location.pathname;
-    this.props.onLoadSession(currentRoute);
+    if (!this.props.hasLoaded) {
+      var currentRoute = getHistory().location.pathname;
+      this.props.onLoadSession(currentRoute);
+    }
   }
 
   render() {
@@ -20,6 +22,7 @@ class HandleStart extends React.Component {
 
 var mapStateToProps = function(state) {
   return {
+    hasLoaded: state.session.hasLoaded
   }
 };
 

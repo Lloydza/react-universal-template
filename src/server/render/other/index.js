@@ -1,28 +1,34 @@
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import { Provider } from 'react-redux';
-import { StaticRouter } from "react-router";
-import configureStore from "../../../app/store/configureStore";
-import routes from '../../../app/routes';
-import renderDefaultPage from '../default';
+import renderApp from '../renderApp';
 
-export default function renderOtherPage(req, res) {
-  // Create a new Redux store instance
-    const initialState = { session: { serverPage: "other" } };
-    const store = configureStore(initialState);
+export default function renderOtherPage(req, res, clientStats) {
+  // ---> Any fetch and server logic would go here <---
+  const initialState = { session: { serverPage: "other" } };
+  renderApp(req, res, clientStats, initialState, renderPage)
+};
 
-    // Render the component to a string
-    const context = {};
-    const html = ReactDOMServer.renderToString(
-      <Provider store={store}>
-        <StaticRouter location={req.url} context={context}>
-         {routes}
-        </StaticRouter>
-      </Provider>
-    );
+// Sample customized render page where you could have specific meta tags
+function renderPage(app, preloadedState, options) {
+  return `
+    <!doctype html>
+    <html>
+      <head>
+        <title>React Universal Template</title>
 
-    // Grab the initial state from our Redux store
-    const preloadedState = store.getState();
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    res.send(renderDefaultPage(html, preloadedState));
+        ${options.styles}
+      </head>
+      <body>
+        <div id="root">${app}</div>
+        ${options.cssHash}
+        ${options.js}
+        <script>
+          window.envLevel = ${process.env.ENVIRONMENT_LEVEL || 1};
+          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')};
+        </script>
+      </body>
+    </html>
+    `
 };

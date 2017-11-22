@@ -1,6 +1,6 @@
 // Used to render most pages.
 // You might use a different/custom render for certain pages if you wanted customized meta tags.
-export default function renderDefaultPage(html, preloadedState) {
+export default function renderDefaultPage(app, preloadedState, options) {
   return `
     <!doctype html>
     <html>
@@ -11,18 +11,16 @@ export default function renderDefaultPage(html, preloadedState) {
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-        <link rel="stylesheet" type="text/css" href="/styles.css">
+        ${options.styles}
       </head>
       <body>
-        <div id="root">${html}</div>
+        <div id="root">${app}</div>
+        ${options.cssHash}
+        ${options.js}
         <script>
-          // WARNING: See the following for security issues around embedding JSON in HTML:
-          // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
           window.envLevel = ${process.env.ENVIRONMENT_LEVEL || 1};
           window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')};
         </script>
-        <script src="/vendor.bundle.js"></script>
-        <script src="/bundle.js"></script>
       </body>
     </html>
     `

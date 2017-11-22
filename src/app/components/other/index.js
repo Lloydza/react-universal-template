@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import styles from '../../content/styles/components/notFound/index.css';
+import styles from '../../content/styles/components/other/index.css';
 
 import { 
   changeRoute
