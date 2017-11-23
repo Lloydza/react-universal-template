@@ -2,7 +2,7 @@
   "name": "react-universal-template",
   "version": "0.0.2",
   "description": "A template for universal react websites",
-  "main": "build/index.js",
+  "main": "buildServer/main.js",
   "scripts": {
     "start": "npm run clean && cross-env NODE_ENV=production node src/server/index.js",
     "dev": "npm run clean && cross-env NODE_ENV=development node src/server/index.js",

@@ -3,7 +3,7 @@ import renderApp from '../renderApp';
 export default function renderOtherPage(req, res, clientStats) {
   // ---> Any fetch and server logic would go here <---
   const initialState = { session: { serverPage: "other" } };
-  renderApp(req, res, clientStats, initialState, renderPage)
+  renderApp(req, res, clientStats, initialState, renderPage);
 };
 
 // Sample customized render page where you could have specific meta tags

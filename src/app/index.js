@@ -16,7 +16,7 @@ delete window.__PRELOADED_STATE__;
 let store = configureStore(preloadedState);
 let history = getHistory();
 
-const render = RouteHandler =>
+const render = RouteHandler => {
   ReactDOM.hydrate(
     <AppContainer>
       <Provider store={store}>
@@ -25,6 +25,7 @@ const render = RouteHandler =>
     </AppContainer>,
     document.getElementById('root')
   )
+};
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
   module.hot.accept('./components/routeHandler.js', () => {
