@@ -1,4 +1,3 @@
-import config from '../../../config';
 import * as actions from '../actions/index';
 
 function session(state = { hasLoaded: false }, action) {
