@@ -4,7 +4,7 @@
   "description": "Template for react builds",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Lloydza/react-universal-template/tree/client-side-rendering"
   },
   "author": "Lloyd Gray",
   "license": "MIT",
@@ -26,7 +26,6 @@
     "css-loader": "^0.28.11",
     "express": "^4.16.3",
     "html-webpack-plugin": "^3.2.0",
-    "json-loader": "^0.5.7",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",

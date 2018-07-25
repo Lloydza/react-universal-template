@@ -1,45 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, Router } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 
-import getHistory from '../store/history';
+import { loadSession }  from 'app/store/actions/index';
+import getHistory from 'app/store/history';
 const history = getHistory();
 
 // Pages
-import HomePage from '../containers/HomePage/index';
+import HomePage from 'app/containers/homePage/index';
+import OtherPage from 'app/containers/otherPage/index';
+import NotFoundPage from 'app/containers/notFoundPage/index';
 
 // Other Components
-import FullPageLoader from '../components/FullPageLoader/index';
-
-const MainRouter = (
-	<Router history={history}>
-		<Switch>
-			<Route exact path="/" component={HomePage} />
-		</Switch>
-  </Router>
-);
+import FullPageLoader from 'app/components/FullPageLoader/index';
 
 class RouteHandler extends Component {
-	constructor(props) {
-    super(props);
-    this.state = {
-      loaded: true // use false if you want to implement some loading (see componentDidMount())
-    };
-	}
-
 	componentDidMount() {
-    // Could set up to use a loader if required (eg: if we a getting auth token from local storage async)
-		//this.setState({ loaded: true });
+		var currentRoute = getHistory().location.pathname;
+    this.props.onLoadSession(currentRoute);
 	}
 	
 	render() {
-		if (!this.state.loaded) {
+		if (!this.props.hasLoaded) {
 			return <FullPageLoader />;
 		}
 
 		return (
 			<div>
-				{MainRouter}
+				<Router history={history}>
+					<Switch>
+						<Route exact path="/" component={HomePage} />
+						<Route exact path="/other" component={OtherPage} />
+						<Route path="*" component={NotFoundPage} />
+					</Switch>
+				</Router>
 			</div>
 		);
 	}
@@ -47,11 +41,15 @@ class RouteHandler extends Component {
 
 var mapStateToProps = function(state) {
   return {
+		hasLoaded: state.session.hasLoaded
   }
 };
 
 var mapDispatchToProps = (dispatch) => {
   return {
+  	onLoadSession: (currentRoute) => {
+      dispatch(loadSession(currentRoute));
+    },
   }
 };
 

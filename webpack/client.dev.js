@@ -18,7 +18,11 @@ module.exports = {
     chunkFilename: '[name].[chunkhash].js',
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.json']
+    extensions: ['*', '.js', '.jsx', '.json'],
+    alias: {
+      app: path.resolve(__dirname, '../src/app/'),
+      public: path.resolve(__dirname, '../public/')
+    }
   },
   module: {
     rules: [
@@ -29,14 +33,19 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
-      },
-      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   use: ['url-loader?limit=10000&mimetype=application/font-woff'] },
-      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,   use: ['url-loader?limit=10000&mimetype=application/font-woff'] },
-      { test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,   use: ['url-loader?limit=10000&mimetype=font/opentype'] },
-      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    use: ['url-loader?limit=10000&mimetype=application/octet-stream'] },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,    use: ['file-loader'] },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,    use: ['url-loader?limit=10000&mimetype=image/svg+xml'] }
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: true,
+              localIdentName: "[local]___[hash:base64:5]"
+            }
+          }],
+      }
     ]
   },
   plugins: [

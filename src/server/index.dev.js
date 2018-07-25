@@ -1,12 +1,15 @@
 const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
+const cors = require('./middleware/cors');
 const clientConfig = require('../../webpack/client.dev.js');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
 var app = express();
 var compiler = webpack(clientConfig);
+
+app.use(cors);
 
 app.use(webpackDevMiddleware(compiler, {
   headers: {
