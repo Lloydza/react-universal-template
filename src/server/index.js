@@ -13,7 +13,7 @@ app.use(cors);
 app.use(compression());
 
 // Serve static files
-var file_path = path.join(__dirname, '../../build');
+var file_path = path.join(__dirname, '../../build/dist');
 app.use(express.static(file_path));
 
 // Serve everything else through react-router
