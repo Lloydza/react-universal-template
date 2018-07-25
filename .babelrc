@@ -1,7 +1,9 @@
 {
   "presets": [
     "@babel/preset-env",
-    ["@babel/preset-stage-2", { "decoratorsLegacy": true }],
     "@babel/preset-react"
+  ],
+  "plugins": [
+    "transform-class-properties"
   ]
 }
