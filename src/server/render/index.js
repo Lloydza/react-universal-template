@@ -6,7 +6,7 @@ import renderApp from './renderApp';
 // Templates (Pages)
 import renderDefaultPage from './templates/default';
 
-export default function handleRender(req, res) {
+export default ({ clientStats }) => (req, res) => {
   let routePath = req._parsedUrl.pathname;
 
   // Create the redux store

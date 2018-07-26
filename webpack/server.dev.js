@@ -3,16 +3,17 @@ const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
-  devtool: 'eval-source-map',
+  name: 'server',
   target: 'node',
+  devtool: 'eval-source-map',
   entry: [
     'babel-polyfill',
-    path.join(__dirname, '../src/server/index.js')
+    path.join(__dirname, '../src/server/render/index.js')
   ],
   output: {
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '/',
-    filename: 'server.js',
+    filename: '[name].js',
+    libraryTarget: 'commonjs2'
   },
   resolve: {
     extensions: ['*', '.js', '.jsx', '.json'],
@@ -31,6 +32,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'css-loader/locals',

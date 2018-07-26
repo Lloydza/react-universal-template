@@ -3,16 +3,16 @@ const webpack = require('webpack');
 
 module.exports = {
   mode: 'production',
-  performance: { hints: false },
+  name: 'server',
   target: 'node',
+  performance: { hints: false },
   entry: [
     'babel-polyfill',
-    path.join(__dirname, '../src/server/index.js')
+    path.join(__dirname, '../src/server/index.prod.js')
   ],
   output: {
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '/',
-    filename: 'server.js',
+    filename: 'server.js'
   },
   resolve: {
     extensions: ['*', '.js', '.jsx', '.json'],
@@ -31,6 +31,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'css-loader/locals',

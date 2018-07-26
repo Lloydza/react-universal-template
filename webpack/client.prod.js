@@ -5,6 +5,8 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   mode: 'production',
+  name: 'client',
+  target: 'web',
   performance: { hints: false },
   entry: [
     'babel-polyfill',

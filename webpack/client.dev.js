@@ -1,10 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
-const WriteFilePlugin = require('write-file-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   mode: 'development',
+  name: 'client',
+  target: 'web',
   devtool: 'eval-source-map',
   entry: [
     'babel-polyfill',
@@ -48,7 +49,6 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new WriteFilePlugin(),
     new ExtractTextPlugin({
       filename: 'styles.css',
       allChunks: true

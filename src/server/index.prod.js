@@ -18,7 +18,8 @@ app.use(compression());
 app.use(express.static('dist/static'));
 
 // Serve everything else through react-router
-app.use(handleRender);
+const clientStats = {}; // Would be needed for partial loading
+app.use(handleRender({ clientStats }));
 
 // Listen incoming HTTP requests
 const port = process.env.PORT || 3000;
