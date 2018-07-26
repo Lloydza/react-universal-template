@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   name: 'client',
@@ -13,7 +14,7 @@ module.exports = {
   output: {
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js',
-    path: path.resolve(__dirname, '../buildClient'),
+    path: path.resolve(__dirname, '../dist/static'),
     publicPath: '/static/'
   },
 
@@ -46,6 +47,7 @@ module.exports = {
   
   plugins: [
     new ExtractCssChunks(),
+    new OptimizeCssAssetsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),

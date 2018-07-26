@@ -4,7 +4,7 @@ const WriteFilePlugin = require('write-file-webpack-plugin');
 
 const res = p => path.resolve(__dirname, p);
 const entry = res('../src/server/render/index.js');
-const output = res('../buildServer');
+const output = res('../dist');
 
 module.exports = {
   name: 'server',

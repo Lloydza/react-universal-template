@@ -6,4 +6,4 @@ var cors = function(req, res, next){
  	next();
 }
 
-module.exports = cors
+module.exports = cors;
