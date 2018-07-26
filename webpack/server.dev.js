@@ -11,19 +11,23 @@ module.exports = {
   target: 'node',
   devtool: 'eval',
   mode: "development",
-
   entry: [entry],
-
   output: {
     path: output,
     filename: '[name].js',
     libraryTarget: 'commonjs2'
   },
-
+  resolve: {
+    extensions: ['*', '.js', '.jsx', '.json'],
+    alias: {
+      app: path.resolve(__dirname, '../src/app/'),
+      server: path.resolve(__dirname, '../src/server/'),
+      public: path.resolve(__dirname, '../public/')
+    }
+  },
   node: {
     __dirname: true
   },
-
   module: {
     rules: [
       {
@@ -45,18 +49,12 @@ module.exports = {
         ]
       }
     ]
-  },
-
-  resolve: {
-    extensions: ['.js', '.css']
-  },
-  
+  },  
   plugins: [
     new WriteFilePlugin(),
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1
     }),
-
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),

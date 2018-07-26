@@ -9,7 +9,8 @@
   "author": "Lloyd Gray",
   "homepage": "https://github.com/Lloydza/react-universal-template",
   "scripts": {
-    "start": "npm run clean && cross-env NODE_ENV=production node src/server/index.prod.js",
+    "postinstall": "npm run clean && cross-env NODE_ENV=production node src/server/build.prod.js && cp -r public/* dist/static",
+    "start": "node src/server/index.prod.js",
     "dev": "npm run clean && cross-env NODE_ENV=development node src/server/index.dev.js",
     "clean": "rimraf dist"
   },
@@ -40,6 +41,7 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "rimraf": "^2.6.2",
+    "stats-webpack-plugin": "^0.6.2",
     "webpack": "^4.16.2",
     "webpack-cli": "^3.1.0",
     "webpack-dev-middleware": "^3.1.3",
