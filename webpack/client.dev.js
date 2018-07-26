@@ -7,6 +7,7 @@ module.exports = {
   name: 'client',
   target: 'web',
   devtool: 'eval',
+  mode: "development",
 
   entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false',
@@ -30,17 +31,16 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractCssChunks.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                localIdentName: '[name]__[local]--[hash:base64:5]'
-              }
-            }
-          ]
-        })
+        use: [
+          ExtractCssChunks.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+            },
+          },
+        ],
       }
     ]
   },
@@ -52,12 +52,6 @@ module.exports = {
   plugins: [
     new WriteFilePlugin(),
     new ExtractCssChunks(),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['bootstrap'], // needed to put webpack bootstrap code before chunks
-      filename: '[name].js',
-      minChunks: Infinity
-    }),
-
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
@@ -66,5 +60,11 @@ module.exports = {
         ENVIRONMENT_LEVEL: process.env.ENVIRONMENT_LEVEL || 1
       }
     })
-  ]
+  ],
+  optimization: {
+    splitChunks: {
+      filename: '[name].js',
+      minChunks: Infinity
+    }
+  }
 }

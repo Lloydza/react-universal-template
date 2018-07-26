@@ -1,3 +1,6 @@
-buildClient/
-buildServer/
 node_modules/
+dist/
+.vscode/
+npm-debug.log
+yarn-error.log
+package-lock.json

@@ -12,19 +12,19 @@ const serverConfigProd = require('../../webpack/server.prod');
 
 const logger = require('./middleware/logger');
 const cors = require('./middleware/cors');
-const config = require('../config');
 
 const publicPath = clientConfig.output.publicPath;
 const outputPath = clientConfig.output.path;
 const isDevelopBuild = process.env.NODE_ENV === 'development';
-const port = process.env.PORT || config.defaultPort;
+
 const app = express();
 app.use(logger);
 app.use(cors);
 app.use(compression());
 
-let isBuilt = false;
 
+const port = process.env.PORT || 3000;
+let isBuilt = false;
 const done = () => {
   if (!isBuilt) {
     app.listen(port, () => {

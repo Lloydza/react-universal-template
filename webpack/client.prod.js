@@ -6,6 +6,7 @@ module.exports = {
   name: 'client',
   target: 'web',
   devtool: false,
+  mode: "production",
 
   entry: [path.resolve(__dirname, '../src/app/index.js')],
 
@@ -25,18 +26,16 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractCssChunks.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                minimize: true,
-                localIdentName: '[name]__[local]--[hash:base64:5]'
-              }
-            }
-          ]
-        })
+        use: [
+          ExtractCssChunks.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+            },
+          },
+        ],
       }
     ]
   },
@@ -47,33 +46,19 @@ module.exports = {
   
   plugins: [
     new ExtractCssChunks(),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['bootstrap'], // needed to put webpack bootstrap code before chunks
-      filename: '[name].[chunkhash].js',
-      minChunks: Infinity
-    }),
-
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
         ENVIRONMENT_LEVEL: process.env.ENVIRONMENT_LEVEL || 1
       }
     }),
-
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-          warnings: false,
-          unused: true,
-          dead_code: true,
-          drop_debugger: true,
-          drop_console: true
-      },
-      output: {
-          comments: false
-      },
-      sourceMap:  false
-    }),
-
     new webpack.HashedModuleIdsPlugin()
-  ]
+  ],
+  optimization: {
+    minimize: true,
+    splitChunks: {
+      filename: '[name].js',
+      minChunks: Infinity
+    }
+  }
 }

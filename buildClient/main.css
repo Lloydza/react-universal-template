@@ -1,0 +1,29 @@
+.index__container--2ATXe {
+	margin: 20px;
+	padding: 20px;
+	border: 3px solid orange;
+}
+.index__container--1S_zP {
+	margin: 20px;
+	padding: 20px;
+	border: 3px solid green;
+}
+
+.index__button--3q9OE {
+	border-radius: 6px;
+	padding: 10px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    color: #fff;
+    background-color: #999999;
+	border: 1px solid #808080;
+	box-shadow: 3px 3px 3px #737373;
+	margin: 10px;
+	width: 160px;
+}
+
+.index__button--3q9OE:hover {
+	background-color: #666666;
+}

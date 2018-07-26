@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppContainer from 'react-hot-loader/lib/AppContainer';
+import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'react-redux';
 
 import configureStore from './store/configureStore';
