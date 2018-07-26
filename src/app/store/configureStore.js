@@ -4,10 +4,10 @@ import rootReducer from './reducers/index';
 
 export default function configureStore(preloadedState) {
 	return createStore(
-		rootReducer,
+		rootReducer, 
 		preloadedState,
 		applyMiddleware(
-			thunk
+			thunk,
 		)
 	)
-}
+};

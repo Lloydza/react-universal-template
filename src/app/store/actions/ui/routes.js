@@ -1,4 +1,4 @@
-import getHistory from '../../../history';
+import getHistory from '../../history';
 
 function changeRoute(route) {
 	return function (dispatch, getState) {	
