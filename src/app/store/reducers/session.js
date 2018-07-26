@@ -1,4 +1,4 @@
-import * as actions from '../actions/index';
+import * as actions from 'app/store/actions/index';
 
 function sessionReducer(state = { hasLoaded: false, initialRoute: '' }, action) {
 	switch (action.type) {

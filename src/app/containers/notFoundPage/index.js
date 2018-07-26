@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import styles from '../../content/styles/containers/notFoundPage/index.css';
+import styles from 'app/content/styles/containers/notFoundPage/index.css';
 
 import { 
   changeRoute
-} from '../../store/actions';
+} from 'app/store/actions';
 
 class NotFoundPage extends Component {
   handleChangeRoute = (e) => {
