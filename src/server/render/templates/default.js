@@ -1,13 +1,7 @@
-import renderApp from '../renderApp';
-
-export default function renderOtherPage(req, res, clientStats) {
-  // ---> Any fetch and server logic would go here <---
-  const initialState = { session: { serverPage: "other" } };
-  renderApp(req, res, clientStats, initialState, renderPage);
-};
-
-// Sample customized render page where you could have specific meta tags
-function renderPage(app, preloadedState, options) {
+// Used to render most pages.
+// You might use a different/custom render for certain pages if you wanted customized meta tags.
+// options could also potentially contain data for things like meta tags
+export default function renderDefaultPage(app, preloadedState, options) {
   return `
     <!doctype html>
     <html>
@@ -25,7 +19,6 @@ function renderPage(app, preloadedState, options) {
         ${options.cssHash}
         ${options.js}
         <script>
-          window.envLevel = ${process.env.ENVIRONMENT_LEVEL || 1};
           window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')};
         </script>
       </body>

@@ -5,21 +5,23 @@ import createHistory from 'history/createMemoryHistory';
 import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
 
-import renderDefaultPage from './default';
-import RouteHandler from '../../app/components/routeHandler';
-import configureStore from "../../app/store/configureStore";
+import RouteHandler from 'app/routeHandler/index';
+import configureStore from "app/store/configureStore";
 
-export default function renderApp (req, res, clientStats, initialState, renderFunction) {
-  const history = createHistory({ initialEntries: [req.path] })
+export default function renderApp (req, res, clientStats, templateFunction, data) {
+  const initialState = data.initialState || {};
   const store = configureStore(initialState);
-  const preloadedState = store.getState();
-  renderFunction = renderFunction || renderDefaultPage;
+  
+  const history = createHistory({ initialEntries: [req.path] })
 
   const app = ReactDOM.renderToString(
     <Provider store={store}>
       <RouteHandler history={history} />
     </Provider>
   );
+
+  // Grab the initial state from our Redux store
+  const preloadedState = store.getState();
 
   const chunkNames = flushChunkNames()
 
@@ -31,7 +33,9 @@ export default function renderApp (req, res, clientStats, initialState, renderFu
     stylesheets
   } = flushChunks(clientStats, { chunkNames });
 
+  data.options = data.options || {};
   const options = {
+    ...data.options,
     js: js,
     styles: styles,
     cssHash: cssHash,
@@ -39,5 +43,5 @@ export default function renderApp (req, res, clientStats, initialState, renderFu
     stylesheets: stylesheets
   };
 
-  res.send(renderFunction(app, preloadedState, options));
+  res.send(templateFunction(app, preloadedState, options));
 };

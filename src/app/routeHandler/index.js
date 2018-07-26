@@ -2,10 +2,8 @@ import React from 'react';
 import { matchPath } from 'react-router';
 import universal from 'react-universal-component';
 
-import HandleStart from '../other/handleStart';
-
-import Loading from './loading/index';
-import NotFound from './notFound/index';
+import Loading from 'app/components/fullPageLoader/index';
+import NotFound from 'app/containers/notFoundPage/index';
 
 export default class RouteHandler extends React.Component {
   constructor(props) {
@@ -32,10 +30,10 @@ export default class RouteHandler extends React.Component {
     var matchOtherPage = matchPath(pathToMatch, '/other');
 
     if (matchHomePage && matchHomePage.isExact) {
-      UniversalComponent = universal(import('./home/index'), {loading: Loading, error: null, minDelay: 1200 });
+      UniversalComponent = universal(import('app/containers/homePage/index'), {loading: Loading, error: null, minDelay: 1200 });
     }
     else if (matchOtherPage && matchOtherPage.isExact) {
-      UniversalComponent = universal(import('./other/index'), {loading: Loading, error: null, minDelay: 1200 });
+      UniversalComponent = universal(import('app/containers/otherPage/index'), {loading: Loading, error: null, minDelay: 1200 });
     }
     else {
       renderedPage = <NotFound />;
@@ -43,7 +41,6 @@ export default class RouteHandler extends React.Component {
 
     return (
       <div>
-        <HandleStart />
         {renderedPage === null ? <UniversalComponent /> : renderedPage}
       </div>
     );
