@@ -10,7 +10,7 @@ module.exports = {
     path.resolve(__dirname, '../src/app/index.js')
   ],
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../dist/static'),
     publicPath: '/',
     filename: 'bundle.[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js',
@@ -38,6 +38,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
+              minimize: true,
               modules: true,
               localIdentName: "[local]___[hash:base64:5]"
             }

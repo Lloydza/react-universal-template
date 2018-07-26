@@ -24,7 +24,7 @@ app.use(express.static('public'));
 
 app.get('*', function(req, res) {
 	res.set('X-FRAME-OPTIONS', 'DENY');
-  res.sendFile(path.join(__dirname, '../../dist/index.html'));
+  res.sendFile(path.join(__dirname, '../../dist/static/index.html'));
 });
 
 

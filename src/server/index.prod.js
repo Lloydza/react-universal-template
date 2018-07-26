@@ -13,12 +13,12 @@ app.use(redirectSubdomains);
 app.use(forceSsl);
 app.use(compression());
 
-var file_path = path.join(__dirname, '../../dist');
+var file_path = path.join(__dirname, '../../dist/static');
 app.use(express.static(file_path));
 
 app.get('*', function(req, res) {
   res.set('X-FRAME-OPTIONS', 'DENY');
-  res.sendFile(path.join(__dirname, '../../dist/index.html'));
+  res.sendFile(path.join(__dirname, '../../dist/static/index.html'));
 });
 
 var port = process.env.PORT || 3000;

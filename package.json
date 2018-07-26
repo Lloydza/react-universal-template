@@ -9,7 +9,7 @@
   "author": "Lloyd Gray",
   "license": "MIT",
   "scripts": {
-    "postinstall": "npm run clean && cross-env NODE_ENV=production webpack --config webpack/client.prod.js && cp -r public/* dist",
+    "postinstall": "npm run clean && cross-env NODE_ENV=production webpack -p --config webpack/client.prod.js && cp -r public/* dist/static",
     "start": "node src/server/index.prod.js",
     "clean": "rimraf dist",
     "dev": "npm run clean && cross-env NODE_ENV=development node src/server/index.dev.js"
