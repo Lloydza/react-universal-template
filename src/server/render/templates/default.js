@@ -19,9 +19,9 @@ export default function renderDefaultPage(app, preloadedState, options) {
         ${options.cssHash}
         ${options.js}
         <script>
-          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')};
+          window.PRELOADED___STATE = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')};
         </script>
       </body>
     </html>
-    `
-};
+    `;
+}

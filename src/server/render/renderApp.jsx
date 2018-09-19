@@ -6,42 +6,42 @@ import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
 
 import RouteHandler from 'app/routeHandler/index';
-import configureStore from "app/store/configureStore";
+import configureStore from 'app/store/configureStore';
 
-export default function renderApp (req, res, clientStats, templateFunction, data) {
+export default function renderApp(req, res, clientStats, templateFunction, data) {
   const initialState = data.initialState || {};
   const store = configureStore(initialState);
-  
-  const history = createHistory({ initialEntries: [req.path] })
+
+  const history = createHistory({ initialEntries: [req.path] });
 
   const app = ReactDOM.renderToString(
     <Provider store={store}>
       <RouteHandler history={history} />
-    </Provider>
+    </Provider>,
   );
 
   // Grab the initial state from our Redux store
   const preloadedState = store.getState();
 
-  const chunkNames = flushChunkNames()
+  const chunkNames = flushChunkNames();
 
   const {
     js,
     styles,
     cssHash,
     scripts,
-    stylesheets
+    stylesheets,
   } = flushChunks(clientStats, { chunkNames });
 
-  data.options = data.options || {};
+  const passedOptions = data.options || {};
   const options = {
-    ...data.options,
-    js: js,
-    styles: styles,
-    cssHash: cssHash,
-    scripts: scripts,
-    stylesheets: stylesheets
+    ...passedOptions,
+    js,
+    styles,
+    cssHash,
+    scripts,
+    stylesheets,
   };
 
   res.send(templateFunction(app, preloadedState, options));
-};
+}

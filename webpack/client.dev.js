@@ -11,13 +11,13 @@ module.exports = {
   entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false',
     'react-hot-loader/patch',
-    path.resolve(__dirname, '../src/app/index.js')
+    path.resolve(__dirname, '../src/app/index.jsx')
   ],
   output: {
     filename: '[name].js',
     chunkFilename: '[name].js',
     path: path.resolve(__dirname, '../dist/static'),
-    publicPath: '/static/'
+    publicPath: '/'
   },
   resolve: {
     extensions: ['*', '.js', '.jsx', '.json'],
@@ -29,7 +29,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader'
       },

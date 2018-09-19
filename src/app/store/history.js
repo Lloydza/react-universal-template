@@ -1,13 +1,13 @@
 import { createBrowserHistory } from 'history';
 
-var history = null;
+let history = null;
 
-var getHistory = function () {
-	if (!history) {
-		history = createBrowserHistory();
-	}
+const getHistory = function () {
+  if (!history) {
+    history = createBrowserHistory();
+  }
 
-	return history;
+  return history;
 };
 
 export default getHistory;

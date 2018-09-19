@@ -9,12 +9,15 @@ module.exports = {
   target: 'web',
   devtool: false,
   mode: "production",
-  entry: [path.resolve(__dirname, '../src/app/index.js')],
+  entry: {
+    main: path.resolve(__dirname, '../src/app/index.jsx'),
+    vendor: ['react', 'react-redux', 'react-router', 'redux', 'history', 'redux-thunk']
+  },
   output: {
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, '../dist/static'),
-    publicPath: '/static/'
+    publicPath: '/',
   },
   resolve: {
     extensions: ['*', '.js', '.jsx', '.json'],
@@ -26,7 +29,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader'
       },
@@ -60,8 +63,13 @@ module.exports = {
   optimization: {
     minimize: true,
     splitChunks: {
-      filename: '[name].js',
-      minChunks: Infinity
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendor",
+          chunks: "all"
+        }
+      }
     }
   }
 }

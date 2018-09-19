@@ -1,6 +1,6 @@
 // Used to redirect if a request is made to the wrong sub-domain
 
-var redirectSubdomains = function(req, res, next){
+const redirectSubdomains = function (req, res, next) {
   /*
   // Example implementation:
   var host = req.get("host");
@@ -10,6 +10,6 @@ var redirectSubdomains = function(req, res, next){
   */
 
   return next();
-}
+};
 
 module.exports = redirectSubdomains;
