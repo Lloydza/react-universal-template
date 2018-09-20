@@ -15,7 +15,7 @@ module.exports = {
   },
   output: {
     filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].js',
+    chunkFilename: '[id].[chunkhash].js',
     path: path.resolve(__dirname, '../dist/static'),
     publicPath: '/',
   },
@@ -50,7 +50,10 @@ module.exports = {
   },
   plugins: [
     new StatsPlugin('../stats.json'),
-    new ExtractCssChunks(),
+    new ExtractCssChunks({
+      filename: "[name].[hash].css",
+      chunkFilename: "[id].[hash].css",
+    }),
     new OptimizeCssAssetsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {

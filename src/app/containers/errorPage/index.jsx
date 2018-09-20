@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import styles from 'app/content/styles/containers/otherPage/index.css';
+import styles from 'app/content/styles/containers/errorPage/index.css';
 
 import {
   changeRoute,
 } from 'app/store/actions';
 
-class OtherPage extends Component {
+class ErrorPage extends Component {
   handleChangeRoute = (e) => {
     e.preventDefault();
     const { onChangeRoute } = this.props;
@@ -16,18 +16,10 @@ class OtherPage extends Component {
   }
 
   render() {
-    const { initialRoute } = this.props;
-
     return (
       <div className={styles.container}>
         <div>
-          This is the Other Page
-        </div>
-        <div>
-          <h3>
-            App entry point:
-            {initialRoute}
-          </h3>
+          <h1>Oops! This shouldnt have happened...</h1>
         </div>
         <button
           type="button"
@@ -42,15 +34,8 @@ class OtherPage extends Component {
   }
 }
 
-OtherPage.propTypes = {
-  initialRoute: PropTypes.string.isRequired,
+ErrorPage.propTypes = {
   onChangeRoute: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = function (state) {
-  return {
-    initialRoute: state.session.initialRoute,
-  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -61,4 +46,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OtherPage);
+export default connect(null, mapDispatchToProps)(ErrorPage);

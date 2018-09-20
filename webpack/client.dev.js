@@ -9,8 +9,6 @@ module.exports = {
   devtool: 'eval',
   mode: "development",
   entry: [
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false',
-    'react-hot-loader/patch',
     path.resolve(__dirname, '../src/app/index.jsx')
   ],
   output: {
@@ -51,7 +49,6 @@ module.exports = {
   plugins: [
     new WriteFilePlugin(),
     new ExtractCssChunks(),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {

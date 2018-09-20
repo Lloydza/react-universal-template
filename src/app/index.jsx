@@ -15,6 +15,7 @@ const preloadedState = window.PRELOADED___STATE;
 delete window.PRELOADED___STATE;
 
 const store = configureStore(preloadedState);
+
 const history = getHistory();
 
 hydrate(

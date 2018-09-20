@@ -14,6 +14,7 @@ module.exports = {
   },
   extends: 'airbnb',
   rules: {
+    "arrow-body-style": ["error", "always"],
     'import/no-unresolved': 0,
     "func-names": 0,
     "import/export": 0,

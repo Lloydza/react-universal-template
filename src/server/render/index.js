@@ -6,13 +6,14 @@ import renderApp from './renderApp';
 // Templates (Pages)
 import renderDefaultPage from './templates/default';
 
-export default ({ clientStats }) => (req, res) => {
-  const routePath = req._parsedUrl.pathname; // eslint-disable-line no-underscore-dangle
+export default ({ clientStats }) => {
+  return (req, res) => {
+    const routePath = req._parsedUrl.pathname; // eslint-disable-line no-underscore-dangle
 
-  // Create the redux store
-  const initialState = { session: { hasLoaded: true, initialRoute: routePath } };
+    // Create the redux store
+    const initialState = { session: { hasLoaded: true, initialRoute: routePath } };
 
-  /*
+    /*
   // You might want to change some redux store values or call some async await
   // data-fetch depeding on the route and query parameters
   // Example:
@@ -38,5 +39,6 @@ export default ({ clientStats }) => (req, res) => {
   }
   */
 
-  renderApp(req, res, clientStats, renderDefaultPage, { initialState });
+    renderApp(req, res, clientStats, renderDefaultPage, { initialState });
+  };
 };

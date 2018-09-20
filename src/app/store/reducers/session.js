@@ -1,6 +1,6 @@
 import * as actions from 'app/store/actions/index';
 
-function sessionReducer(state = { hasLoaded: false, initialRoute: '' }, action) {
+const sessionReducer = (state = { hasLoaded: false, initialRoute: '' }, action) => {
   switch (action.type) {
     case actions.UPDATE_SESSION_HAS_LOADED:
       return Object.assign({}, state, {
@@ -13,5 +13,6 @@ function sessionReducer(state = { hasLoaded: false, initialRoute: '' }, action) 
     default:
       return state;
   }
-}
-module.exports = sessionReducer;
+};
+
+export default sessionReducer;

@@ -53,10 +53,12 @@ const mapStateToProps = function (state) {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  onChangeRoute: (route) => {
-    dispatch(changeRoute(route));
-  },
-});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onChangeRoute: (route) => {
+      dispatch(changeRoute(route));
+    },
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotFoundPage);

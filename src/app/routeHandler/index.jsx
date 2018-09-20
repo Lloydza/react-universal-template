@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { matchPath } from 'react-router';
 import universal from 'react-universal-component';
 
-import Loading from 'app/components/fullPageLoader/index';
-import NotFound from 'app/containers/notFoundPage/index';
-
-// TODO: Add "oops, something went wrong page"
-// TODO: Remove min delay
+import LoadingPage from 'app/components/fullPageLoader/index';
+import NotFoundPage from 'app/containers/notFoundPage/index';
+import ErrorPage from 'app/containers/errorPage/index';
 
 class RouteHandler extends React.Component {
   constructor(props) {
@@ -26,7 +24,7 @@ class RouteHandler extends React.Component {
   }
 
   componentDidMount() {
-    console.log(111);
+    console.log('Web app is running.');
   }
 
   render() {
@@ -38,11 +36,11 @@ class RouteHandler extends React.Component {
     const matchOtherPage = matchPath(path, '/other');
 
     if (matchHomePage && matchHomePage.isExact) {
-      UniversalComponent = universal(import('app/containers/homePage/index'), { loading: Loading, error: null, minDelay: 1200 });
+      UniversalComponent = universal(import('app/containers/homePage/index'), { loading: LoadingPage, error: ErrorPage, minDelay: 1200 });
     } else if (matchOtherPage && matchOtherPage.isExact) {
-      UniversalComponent = universal(import('app/containers/otherPage/index'), { loading: Loading, error: null, minDelay: 1200 });
+      UniversalComponent = universal(import('app/containers/otherPage/index'), { loading: LoadingPage, error: ErrorPage, minDelay: 1200 });
     } else {
-      renderedPage = <NotFound />;
+      renderedPage = <NotFoundPage />;
     }
 
     return (

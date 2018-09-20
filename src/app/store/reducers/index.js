@@ -6,6 +6,4 @@ const appReducer = combineReducers({
   session,
 });
 
-const rootReducer = (state, action) => appReducer(state, action);
-
-module.exports = rootReducer;
+export default (state, action) => { return appReducer(state, action); };

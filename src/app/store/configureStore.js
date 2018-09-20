@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 
-export default function configureStore(preloadedState) {
+export default (preloadedState) => {
   return createStore(
     rootReducer,
     preloadedState,
@@ -10,4 +10,4 @@ export default function configureStore(preloadedState) {
       thunk,
     ),
   );
-}
+};
