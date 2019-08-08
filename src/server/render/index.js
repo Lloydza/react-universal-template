@@ -1,31 +1,66 @@
-import { matchPath } from 'react-router';
+import { DOMAIN } from 'app/utils/constants';
+import configureStore from 'app/store/configureStore';
+import renderApp from 'server/render/renderApp';
+import renderDefaultPage from 'server/render/templates/default';
+import { handleRouteRedirects } from 'server/render/logic/handleRedirects';
+import { fetchAndAddRouteData, fetchAndAddGlobalData } from 'server/render/logic/handleDataFetches';
+import {
+  updateSessionUser,
+  updateSessionAccessToken,
+  updateSessionRefreshToken,
+  changeRoute,
+  setPageTitle,
+  updateAppIsPageNotFound,
+} from 'app/store/actions';
 
-// Render function
-import renderApp from './renderApp';
+// Handle the rendering of the requested HTML page
+// -> Redirects the user to the login page if trying to access a restricted route
+// -> Redirects the user to the home page if trying to access a login-specific page while logged in
+// -> Redirects if trying to access a client-side only page
+// -> Set up the redux store for SSR
+// -> Calls any fetches for the current route for the redux store
+// -> Redirects if data for the route does not exist
+// -> Builds dynamic meta tags for specific pages
+// -> Calls the render function for the required template
+export default ({ clientStats }) => {
+  return async (ctx, next) => {
+    try {
+      // Create the redux store
+      const initialState = {};
+      const store = configureStore(initialState);
+      if (ctx.request.user && ctx.request.accessToken && ctx.request.refreshToken) {
+        store.dispatch(updateSessionUser(ctx.request.user));
+        store.dispatch(updateSessionAccessToken(ctx.request.accessToken));
+        store.dispatch(updateSessionRefreshToken(ctx.request.refreshToken));
+      }
 
-// Templates (Pages)
-import renderDefaultPage from './templates/default';
+      // The current path needs to be added to the route path
+      store.dispatch(changeRoute(ctx.request.url));
+      store.dispatch(setPageTitle(ctx.request.url));
 
-export default ({ clientStats }) => (req, res) => {
-  let routePath = req._parsedUrl.pathname;
+      // Handle potential route redirects
+      const hasRouteRedirected = await handleRouteRedirects(ctx);
+      if (hasRouteRedirected) {
+        return;
+      }
 
-  // Create the redux store
-  let initialState = { session: { hasLoaded: true,  initialRoute: routePath } };
+      // Fetch any global data
+      await fetchAndAddGlobalData(ctx, store);
 
-  /*
-  // You might want to change some redux store values or call some async await data-fetch depeding on the route and query parameters
-  // Example:
-  const matchProfile = matchPath(pathToMatch, '/profiles/:userId');
-  if (matchProfile && matchProfile.isExact && utilities.checkIfParamIsInt(matchProfile.params.userId)) {
-    initialState.session.userId = matchProfile.params.userId;
-    initialState.someOtherValue = req.query.someQueryVal
+      // Fetch any route-specific data. Must be called AFTER global fetch.
+      const fetchStatus = await fetchAndAddRouteData(ctx, store);
 
-    // potentially call something like renderProfilePage() here, which could be different to the default renderDefaultPage() template
-    // Example:
-    renderApp(renderProfilePage, { initialState: initialState, options: { userName: req.query.userName } });
-    return; // Return if not wanting to render the default template and use the template as in example above
-  }
-  */
+      // Set not found on invalid data
+      if (!fetchStatus) {
+        store.dispatch(updateAppIsPageNotFound(true));
+      }
 
-  renderApp(req, res, renderDefaultPage, { initialState: initialState });
+      renderApp(ctx, clientStats, renderDefaultPage, { store });
+      await next();
+    } catch (err) {
+      console.log(err);
+      ctx.status = 302;
+      ctx.redirect(`${ctx.protocol}://${DOMAIN}/error`);
+    }
+  };
 };

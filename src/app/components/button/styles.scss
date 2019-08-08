@@ -1,0 +1,28 @@
+@import 'app/content/styles/variables.scss';
+
+.button {
+  user-select: none;
+  white-space: nowrap;
+  font-size: 95%;
+  height: 40px;
+  display: inline-flex;
+  padding: 0 30px;
+  width: initial;
+  align-items: center;
+  border-radius: 30px;
+  transition: 0.3s;
+  width: initial;
+  cursor: pointer;
+  outline: none;
+  font-weight: 600;
+  background-color: #990099;
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.disabled {
+  cursor: initial;
+  pointer-events: none;
+  opacity: 0.3;
+}

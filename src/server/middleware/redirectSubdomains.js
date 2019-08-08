@@ -1,15 +1,16 @@
 // Used to redirect if a request is made to the wrong sub-domain
 
-var redirectSubdomains = function(req, res, next){
-  /*
-  // Example implementation:
-  var host = req.get("host");
-  if (host !== 'www.mywebsite.com') {
-    return res.redirect(301, ['https://www.mywebsite.com', req.url].join(''));
-  }
-  */
+const redirectDomains = [];
 
-  return next();
-}
+const redirectSubdomains = async (ctx, next) => {
+  const { hostname, protocol, originalUrl } = ctx;
+  if (redirectDomains.includes(hostname)) {
+    ctx.status = 302;
+    ctx.redirect(`${protocol}://www.${hostname}${originalUrl}`);
+    return;
+  }
+
+  await next();
+};
 
 module.exports = redirectSubdomains;

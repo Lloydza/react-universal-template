@@ -1,60 +1,100 @@
-const path = require('path');
 const webpack = require('webpack');
+const path = require('path');
+const WriteFilePlugin = require('write-file-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
   name: 'server',
   target: 'node',
-  performance: { hints: false },
-  entry: [
-    'babel-polyfill',
-    path.join(__dirname, '../src/server/index.prod.js')
-  ],
-  output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: 'server.js'
-  },
+  devtool: false,
+  mode: 'production',
   resolve: {
     extensions: ['*', '.js', '.jsx', '.json'],
     alias: {
       app: path.resolve(__dirname, '../src/app/'),
       server: path.resolve(__dirname, '../src/server/'),
-      public: path.resolve(__dirname, '../public/')
-    }
+    },
+  },
+  entry: path.resolve(__dirname, '../src/server/server.prod.js'),
+  output: {
+    path: path.resolve(__dirname, '../dist/server'),
+    filename: '[name].js',
+    libraryTarget: 'commonjs2',
+    publicPath: '/',
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader']
-      },
-      {
-        test: /\.css$/,
+        test: /\.(css|scss)$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: 'css-loader/locals',
+            loader: 'css-loader',
             options: {
               modules: true,
-              minimize: true,
-              localIdentName: "[name]--[local]--[hash:base64:5]"
-            }
-          }],
-      }
-    ]
+              exportOnlyLocals: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+            },
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
+      },
+      {
+        test: /\.css$/,
+        include: /node_modules/,
+        use: [
+          {
+            loader: 'css-loader',
+          },
+        ],
+      },
+      {
+        test: /\.(js|jsx)$/,
+        include: [path.resolve(__dirname, '../src/')],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  modules: 'commonjs',
+                },
+              ],
+              '@babel/preset-react',
+            ],
+          },
+        },
+      },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      },
+    ],
   },
   plugins: [
-    new webpack.HashedModuleIdsPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        ON_SERVER: true,
-        NODE_ENV: JSON.stringify('production')
-      }
+    new WriteFilePlugin(),
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1,
     }),
   ],
   optimization: {
-    minimize: true
-  }
+    minimize: true,
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true,
+        },
+      },
+    },
+  },
 };

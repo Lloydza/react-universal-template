@@ -1,69 +1,107 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const WriteFilePlugin = require('write-file-webpack-plugin');
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const { StatsWriterPlugin } = require('webpack-stats-plugin');
 
 module.exports = {
-  mode: 'production',
   name: 'client',
   target: 'web',
-  performance: { hints: false },
-  entry: [
-    'babel-polyfill',
-    path.resolve(__dirname, '../src/app/index.js')
-  ],
-  output: {
-    path: path.resolve(__dirname, '../dist/static'),
-    publicPath: '/',
-    filename: 'bundle.js'
-  },
+  devtool: false,
+  mode: 'production',
   resolve: {
     extensions: ['*', '.js', '.jsx', '.json'],
     alias: {
       app: path.resolve(__dirname, '../src/app/'),
-      public: path.resolve(__dirname, '../public/')
-    }
+      server: path.resolve(__dirname, '../src/server/'),
+    },
+  },
+  entry: {
+    main: path.resolve(__dirname, '../src/app/index.prod.jsx'),
+    vendor: ['react', 'react-redux', 'react-router', 'redux', 'history', 'redux-thunk'],
+  },
+  output: {
+    filename: 'bundle.[chunkhash].js',
+    chunkFilename: 'vendor.[chunkhash].js',
+    path: path.resolve(__dirname, '../dist/static'),
+    publicPath: '/',
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(css|scss)$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: [
+          ExtractCssChunks.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+            },
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                minimize: true,
-                modules: true,
-                localIdentName: '[name]--[local]--[hash:base64:5]'
-              }
-            }
-          ]
-        })
-      }
-    ]
+        include: /node_modules/,
+        use: [ExtractCssChunks.loader, 'css-loader'],
+      },
+      {
+        test: /\.(js|jsx)$/,
+        include: [path.resolve(__dirname, '../src/')],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  modules: 'commonjs',
+                },
+              ],
+              '@babel/preset-react',
+            ],
+          },
+        },
+      },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      },
+    ],
   },
   plugins: [
-    new webpack.HashedModuleIdsPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin({
-      filename: 'styles.css',
-      allChunks: true
+    new WriteFilePlugin(),
+    new StatsWriterPlugin({
+      filename: '../stats.json',
+    }),
+    new ExtractCssChunks({
+      filename: 'styles.[chunkhash].css',
     }),
     new OptimizeCssAssetsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        ON_SERVER: false,
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
+    new webpack.HashedModuleIdsPlugin(),
   ],
   optimization: {
-    minimize: true
-  }
+    minimize: true,
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true,
+        },
+      },
+    },
+  },
 };

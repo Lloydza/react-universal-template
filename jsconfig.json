@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "paths": {
+      "app/*": [
+        "src/app/*"
+      ],
+      "server/*": [
+        "src/server/*"
+      ],
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "webpack",
+    "stories",
+    "infrastructure",
+    "dist",
+    ".vscode",
+    ".storybook"
+  ]
+}

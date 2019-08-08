@@ -1,0 +1,18 @@
+@import 'app/content/styles/variables.scss';
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  div[id*='root'] {
+    height: 100%;
+    overflow: hidden;
+    > div[class*='container'] {
+      height: 100%;
+    }
+  }
+}
