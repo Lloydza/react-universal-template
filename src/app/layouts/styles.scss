@@ -1,0 +1,14 @@
+@import 'app/content/styles/variables.scss';
+
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}

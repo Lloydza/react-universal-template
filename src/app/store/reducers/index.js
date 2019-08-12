@@ -1,13 +1,18 @@
-import { combineReducers } from 'redux';
-
+import app from './app';
+import history from './history';
 import session from './session';
 
-const appReducer = combineReducers({
-	session
-});
+// Using a custom combineReducers() here, so that we can pass the sessionUser down
+// This way, each reducer has access to the session user
+const appReducer = (state = {}, action) => {
+  const sessionUser = state.session ? state.session.user : null;
+  return {
+    app: app(state.app, action, sessionUser),
+    history: history(state.history, action, sessionUser),
+    session: session(state.session, action, sessionUser),
+  };
+};
 
-const rootReducer = (state, action) => {
-  return appReducer(state, action)
-}
-
-module.exports = rootReducer;
+export default (state, action) => {
+  return appReducer(state, action);
+};

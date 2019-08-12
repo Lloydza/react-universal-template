@@ -1,17 +1,22 @@
-import * as actions from '../actions/index';
+import * as actions from 'app/store/actions';
 
-function sessionReducer(state = { hasLoaded: false, initialRoute: '' }, action) {
-	switch (action.type) {
-		case actions.UPDATE_SESSION_HAS_LOADED:
-			return Object.assign({}, state, { 
-				hasLoaded: action.hasLoaded
-			});
-		case actions.UPDATE_SESSION_SET_INTIAL_ROUTE:
-			return Object.assign({}, state, { 
-				initialRoute: action.initialRoute
-			});
-		default:
-			return state
-	}
+const defaultState = () => {
+  return {
+    user: null,
+    accessToken: null,
+    refreshToken: null,
+  };
 };
-module.exports = sessionReducer;
+
+export default (state = defaultState(), action) => {
+  switch (action.type) {
+    case actions.UPDATE_SESSION_USER:
+      return { ...state, user: action.user };
+    case actions.UPDATE_SESSION_ACCESS_TOKEN:
+      return { ...state, accessToken: action.accessToken };
+    case actions.UPDATE_SESSION_REFRESH_TOKEN:
+      return { ...state, accessToken: action.accessToken };
+    default:
+      return state;
+  }
+};

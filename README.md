@@ -1,14 +1,13 @@
-# Client Side Rendering
+## Setup
 
-## Installation
+1.  Make sure you have [**Node**](https://docs.npmjs.com/getting-started/installing-node) installed.
+2.  Make sure you have [**Yarn**](https://yarnpkg.com/en/docs/getting-started) installed.
 
-```bash
-clone the repo 
+## To Run:
+
+```In bash
 yarn install
-npm run dev
-open http://localhost:3000
+yarn run local
 ```
 
-Info:
-This is a front end app built with React and Redux. It's recommended
-to become somewhat familiar with these libraries.
+The site should be running on http://localhost:3000
