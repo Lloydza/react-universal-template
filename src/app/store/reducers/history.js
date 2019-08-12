@@ -5,7 +5,9 @@ const defaultState = () => {
   return { stack: [], currentRoute: '/', currentQueryParams: {} };
 };
 
+let currentRoute;
 let currentQueryParams;
+let stack;
 
 export default (state = defaultState(), action) => {
   switch (action.type) {
@@ -15,21 +17,22 @@ export default (state = defaultState(), action) => {
       }
 
       currentQueryParams = findQueryParams(action.newPathname);
-      return Object.assign({}, state, {
+      return {
+        ...state,
         stack: [...state.stack, { route: action.newPathname, queryParams: currentQueryParams }],
         currentRoute: action.newPathname,
         currentQueryParams,
-      });
+      };
     case actions.PREVIOUS_ROUTE:
       if (state.stack.length === 0) {
         return state;
       }
 
-      const stack = deeplyCloneObject(state.stack);
+      stack = deeplyCloneObject(state.stack);
       stack.pop();
-      const currentRoute = stack.length > 0 ? stack[stack.length - 1].route : '/';
+      currentRoute = stack.length > 0 ? stack[stack.length - 1].route : '/';
       currentQueryParams = stack.length > 0 ? stack[stack.length - 1].queryParams : {};
-      return Object.assign({}, state, { stack, currentRoute, currentQueryParams });
+      return { ...state, stack, currentRoute, currentQueryParams };
     default:
       return state;
   }

@@ -57,7 +57,7 @@ class RouteHandler extends React.Component {
     const Layout = getLayout(pathname);
 
     const queryParams = findQueryParams(search);
-    const props = Object.assign({}, queryParams, pageParams);
+    const props = { ...queryParams, ...pageParams };
 
     return (
       <Layout>

@@ -16,21 +16,15 @@ export default (state = defaultState(), action) => {
         return state;
       }
 
-      return Object.assign({}, state, {
-        isLoading: action.isLoading,
-      });
+      return { ...state, isLoading: action.isLoading };
     case actions.UPDATE_APP_IS_PAGE_NOT_FOUND:
       if (state.isPageNotFound === action.isPageNotFound) {
         return state;
       }
 
-      return Object.assign({}, state, {
-        isPageNotFound: action.isPageNotFound,
-      });
+      return { ...state, isPageNotFound: action.isPageNotFound };
     case actions.UPDATE_PAGE_TITLE:
-      return Object.assign({}, state, {
-        pageTitle: action.pageTitle,
-      });
+      return { ...state, pageTitle: action.pageTitle };
     default:
       return state;
   }

@@ -6,7 +6,7 @@ import routes from './serverRoutes';
 // Pages for which to call the fetchData() are defined in serverRoutes.js
 export const fetchAndAddRouteData = async (ctx, store) => {
   const wrappedComponent = getMatchedComponent(ctx);
-  const options = Object.assign({}, wrappedComponent.params, { isServer: true });
+  const options = { ...wrappedComponent.params, isServer: true };
   return wrappedComponent.component.fetchData(store, options);
 };
 
@@ -18,7 +18,7 @@ export const fetchAndAddGlobalData = async (ctx, store) => {
   }
 
   const wrappedComponent = getMatchedComponent(ctx);
-  const options = Object.assign({}, wrappedComponent.params, { isServer: true });
+  const options = { ...wrappedComponent.params, isServer: true };
 
   // Put fetches here
   // await store.dispatch(getAndSetSomeGlobalSiteData(options));
@@ -30,7 +30,7 @@ const getMatchedComponent = (ctx) => {
   routes.every((route) => {
     const matchRoutePath = matchPath(ctx.request.path, route.path);
     if (matchRoutePath && matchRoutePath.isExact && route.component.fetchData) {
-      const params = Object.assign({}, findQueryParams(ctx.request.url), matchRoutePath.params);
+      const params = { ...findQueryParams(ctx.request.url), ...matchRoutePath.params };
       wrappedComponent = { component: route.component, params };
       return false;
     }

@@ -11,17 +11,11 @@ const defaultState = () => {
 export default (state = defaultState(), action) => {
   switch (action.type) {
     case actions.UPDATE_SESSION_USER:
-      return Object.assign({}, state, {
-        user: action.user,
-      });
+      return { ...state, user: action.user };
     case actions.UPDATE_SESSION_ACCESS_TOKEN:
-      return Object.assign({}, state, {
-        accessToken: action.accessToken,
-      });
+      return { ...state, accessToken: action.accessToken };
     case actions.UPDATE_SESSION_REFRESH_TOKEN:
-      return Object.assign({}, state, {
-        accessToken: action.accessToken,
-      });
+      return { ...state, accessToken: action.accessToken };
     default:
       return state;
   }

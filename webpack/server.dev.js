@@ -41,26 +41,10 @@ module.exports = {
         ],
       },
       {
-        test: /\.css$/,
-        include: /node_modules/,
-        use: ['css-loader'],
-      },
-      {
         test: /\.(js|jsx)$/,
         include: [path.resolve(__dirname, '../src/')],
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  modules: 'commonjs',
-                },
-              ],
-              '@babel/preset-react',
-            ],
-          },
         },
       },
       {

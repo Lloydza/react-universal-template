@@ -1,6 +1,7 @@
 require('./globals');
 require('isomorphic-fetch');
 const Koa = require('koa');
+const compress = require('koa-compress');
 const helmet = require('koa-helmet');
 const bodyParser = require('koa-bodyparser');
 const serve = require('koa-static');
@@ -21,6 +22,7 @@ const createServer = () => {
   );
   koaServer.use(logger);
   koaServer.use(bodyParser());
+  koaServer.use(compress());
   koaServer.use(serve('dist/static'));
   koaServer.use(redirectSubdomains);
   koaServer.use(cookieParser.default());
@@ -35,6 +37,6 @@ const server = createServer();
 
 // Listen incoming HTTP requests
 const port = process.env.PORT || 3000;
-server.listen(port, function() {
+server.listen(port, () => {
   console.log(`User Web Server listening on port: ${port}`);
 });
