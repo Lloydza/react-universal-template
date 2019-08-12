@@ -94,12 +94,6 @@ module.exports = {
           name: 'vendor',
           chunks: 'all',
         },
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true,
-        },
       },
     },
   },

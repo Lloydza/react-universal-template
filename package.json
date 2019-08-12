@@ -9,8 +9,8 @@
     "url": "https://github.com/Lloydza/react-universal-template/tree/client-side-rendering"
   },
   "scripts": {
-    "build": "npm run clean && cross-env NODE_ENV=production webpack -p --config webpack/client.prod.js && cp -rT static dist/static",
-    "start": "node src/server/server.prod.js",
+    "build": "npm run clean && cross-env NODE_ENV=production webpack -p --config webpack/client.prod.js && webpack -p --config webpack/server.prod.js && cp -rT static dist/static",
+    "start": "cross-env NODE_ENV=production node dist/server/main.js",
     "prod": "npm run clean && cross-env ENVIRONMENT_LEVEL=4 IS_LOCAL=true NODE_ENV=development node src/server/server.dev.js",
     "uat": "npm run clean && cross-env ENVIRONMENT_LEVEL=3 IS_LOCAL=true NODE_ENV=development node src/server/server.dev.js",
     "dev": "npm run clean && cross-env ENVIRONMENT_LEVEL=2 IS_LOCAL=true NODE_ENV=development node src/server/server.dev.js",
