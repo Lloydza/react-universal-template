@@ -1,8 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const WriteFilePlugin = require('write-file-webpack-plugin');
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   name: 'client',
@@ -29,7 +28,9 @@ module.exports = {
         test: /\.(css|scss)$/,
         exclude: /node_modules/,
         use: [
-          ExtractCssChunks.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
           {
             loader: 'css-loader',
             options: {
@@ -58,13 +59,10 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new WriteFilePlugin(),
-    new ExtractCssChunks({
+    new MiniCssExtractPlugin({
       filename: 'styles.css',
     }),
     new webpack.NoEmitOnErrorsPlugin(),
-    new BundleAnalyzerPlugin({
-      openAnalyzer: false,
-    }),
   ],
   optimization: {
     minimize: false,
@@ -74,12 +72,6 @@ module.exports = {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
           chunks: 'all',
-        },
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true,
         },
       },
     },

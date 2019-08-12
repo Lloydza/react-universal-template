@@ -6,13 +6,13 @@ import env from 'server/env';
 export default function renderDefaultPage(app, preloadedState, options) {
   const { meta, css, js } = options;
 
-  const styles = css.map((item) => {
-    return `<link rel="stylesheet" type="text/css" href="${item}">`;
-  });
+  const styles = css.reduce((reducer, item) => {
+    return `${reducer}<link rel="stylesheet" type="text/css" href="/${item}">`;
+  }, '');
 
-  const scripts = js.map((item) => {
-    return `<script src="${item}"></script>`;
-  });
+  const scripts = js.reduce((reducer, item) => {
+    return `${reducer}<script src="/${item}"></script>`;
+  }, '');
 
   return `
     <!doctype html>

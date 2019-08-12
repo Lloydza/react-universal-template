@@ -1,8 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const WriteFilePlugin = require('write-file-webpack-plugin');
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { StatsWriterPlugin } = require('webpack-stats-plugin');
 
 module.exports = {
@@ -17,10 +17,7 @@ module.exports = {
       server: path.resolve(__dirname, '../src/server/'),
     },
   },
-  entry: {
-    main: path.resolve(__dirname, '../src/app/index.prod.jsx'),
-    vendor: ['react', 'react-redux', 'react-router', 'redux', 'history', 'redux-thunk'],
-  },
+  entry: path.resolve(__dirname, '../src/app/index.prod.jsx'),
   output: {
     filename: 'bundle.[chunkhash].js',
     chunkFilename: 'vendor.[chunkhash].js',
@@ -33,7 +30,9 @@ module.exports = {
         test: /\.(css|scss)$/,
         exclude: /node_modules/,
         use: [
-          ExtractCssChunks.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
           {
             loader: 'css-loader',
             options: {
@@ -64,7 +63,7 @@ module.exports = {
     new StatsWriterPlugin({
       filename: '../stats.json',
     }),
-    new ExtractCssChunks({
+    new MiniCssExtractPlugin({
       filename: 'styles.[chunkhash].css',
     }),
     new OptimizeCssAssetsPlugin(),
@@ -78,12 +77,6 @@ module.exports = {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
           chunks: 'all',
-        },
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true,
         },
       },
     },
