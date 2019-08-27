@@ -2,6 +2,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { findQueryParams } from 'app/utils/utilFunctions';
+import { setPageTitle } from './actions';
 import { defaultState as defaultHistoryState } from './reducers/history';
 import getHistory from './history';
 import rootReducer from './reducers/index';
@@ -17,6 +18,8 @@ export default () => {
     { history: { ...defaultHistoryState(), currentRoute, currentQueryParams } },
     applyMiddleware(thunk),
   );
+
+  store.dispatch(setPageTitle(currentRoute));
 
   if (module && module.hot) {
     module.hot.accept('./reducers', () => {
