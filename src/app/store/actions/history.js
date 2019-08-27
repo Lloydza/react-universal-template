@@ -1,10 +1,15 @@
 import { IS_SERVER } from 'app/utils/constants';
+import { createReduxActions } from 'app/utils/utilFunctions';
 import getHistory from 'app/store/history';
 import { updateAppIsPageNotFound, setPageTitle } from 'app/store/actions';
 
 export const CHANGE_ROUTE = 'CHANGE_ROUTE';
 export const PREVIOUS_ROUTE = 'PREVIOUS_ROUTE';
-export const SET_HISTORY_CURRENT_ROUTE = 'SET_HISTORY_CURRENT_ROUTE';
+
+export const [changeRoute, previousRoute] = createReduxActions([
+  { type: CHANGE_ROUTE, key: 'newPathname' },
+  { type: PREVIOUS_ROUTE },
+]);
 
 /**
  * Navigates the forward to the route if required, and/or shows confirm modal
@@ -41,25 +46,5 @@ export const managePreviousRoute = ({ newPathname }, onNavBackComplete) => {
       onNavBackComplete();
       dispatch(setPageTitle(newPathname));
     }
-  };
-};
-
-/**
- * Fires off a redux event for the next route change
- * @param  {String} newPathname : The new route to navigate to
- */
-export const changeRoute = (newPathname) => {
-  return {
-    type: CHANGE_ROUTE,
-    newPathname,
-  };
-};
-
-/**
- * Fires off a redux event for the previous route change
- */
-export const previousRoute = () => {
-  return {
-    type: PREVIOUS_ROUTE,
   };
 };
