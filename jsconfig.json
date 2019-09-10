@@ -9,7 +9,7 @@
       ],
       "server/*": [
         "src/server/*"
-      ],
+      ]
     }
   },
   "exclude": [
