@@ -2,9 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles.scss';
 
-const Button = (props) => {
-  const { size, text, onClick, className, disabled } = props;
-
+const Button = ({ size, text, onClick, className, disabled }) => {
   return (
     <button
       type="submit"

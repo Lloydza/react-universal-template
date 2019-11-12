@@ -1,11 +1,9 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Footer, Header } from 'app/components';
+import { Header, Footer } from 'app/views';
 import styles from './styles.scss';
 
-const DefaultLayout = (props) => {
-  const { children } = props;
-
+const DefaultLayout = ({ children }) => {
   return (
     <div className={styles.container}>
       <Header />

@@ -13,7 +13,7 @@ import { updateSessionAccessToken } from 'app/store/actions';
  * such as whether to set the app into a loading state or override the error handling.
  * @return {Object} : The resulting data from the request
  */
-export const makeRequest = (url, requestOptions, options = {}, count = 0) => {
+export const makeRequest = ({ url, requestOptions, options = {}, count = 0 }) => {
   return async (dispatch, getState) => {
     if (!url || !requestOptions) {
       throw error('response.invalidRequestParameters', 400);
@@ -45,7 +45,7 @@ export const makeRequest = (url, requestOptions, options = {}, count = 0) => {
           return new Promise((resolve, reject) => {
             const awaitFunction = async () => {
               try {
-                const result = dispatch(makeRequest(url, requestOptions, options, count + 1));
+                const result = dispatch(makeRequest({ url, requestOptions, options, count: count + 1 }));
                 resolve(result);
               } catch (promiseError) {
                 reject(promiseError);

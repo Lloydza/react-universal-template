@@ -1,17 +1,18 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button } from 'app/components';
 import { manageChangeRoute } from 'app/store/actions';
 import styles from './styles.scss';
 
-const NotFoundPage = (props) => {
-  const { currentRoute, onChangeRoute } = props;
-
-  const handleGoToHomePage = (e) => {
-    e.preventDefault();
-    onChangeRoute('/');
-  };
+const NotFoundPage = ({ currentRoute, onChangeRoute }) => {
+  const handleGoToHomePage = useCallback(
+    (e) => {
+      e.preventDefault();
+      onChangeRoute('/');
+    },
+    [onChangeRoute],
+  );
 
   return (
     <div className={styles.container}>
