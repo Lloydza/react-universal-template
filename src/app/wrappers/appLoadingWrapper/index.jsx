@@ -25,12 +25,7 @@ export default (Page) => {
     isPageLoading: false,
   };
 
-  return memo(
-    connect(
-      mapStateToProps,
-      null,
-    )(AppLoadingWrapperComponent),
-  );
+  return memo(connect(mapStateToProps, null)(AppLoadingWrapperComponent));
 };
 
 const mapStateToProps = (state) => {

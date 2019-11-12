@@ -44,9 +44,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default memo(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(DashboardPage),
-);
+export default memo(connect(mapStateToProps, mapDispatchToProps)(DashboardPage));
