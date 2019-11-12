@@ -1,5 +1,5 @@
 /* eslint no-shadow: 0 */
-import React from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { findQueryParams } from 'app/utils/utilFunctions';
@@ -8,64 +8,60 @@ import getLayout from './layoutImporter';
 import getPage from './pageImporter';
 
 // Route handler serves the correct page based on route
-class RouteHandler extends React.Component {
-  constructor(props) {
-    super(props);
+const RouteHandler = ({ history, isPageNotFound, onSessionStarted, onManagePreviousRoute }) => {
+  const [pathname, setPathname] = useState(history.location.pathname);
+  const [search, setSearch] = useState(history.location.search);
 
-    const { history } = props;
-    const { pathname, search } = history.location;
-    this.state = { pathname, search };
+  useEffect(() => {
+    onSessionStarted();
+  }, []);
 
-    // History and routing is managed via the below listener
-    history.listen(({ pathname, search }, action) => {
-      const { pathname: currentPathname, search: currentSearch } = this.state;
-
-      if (currentPathname + currentSearch === pathname + search) {
+  useEffect(() => {
+    const unlisten = history.listen(({ pathname: newPathname, search: newSearch }, action) => {
+      if (pathname + search === newPathname + newSearch) {
         return;
       }
 
       if (action === 'POP') {
-        const { onManagePreviousRoute } = this.props;
         onManagePreviousRoute(
           {
             history,
-            currentPathname,
-            currentSearch,
-            newPathname: pathname,
-            newSearch: search,
+            currentPathname: pathname,
+            currentSearch: search,
+            newPathname,
+            newSearch,
           },
           () => {
-            this.setState({ pathname, search });
+            setPathname(newPathname);
+            setSearch(newSearch);
           },
         );
       } else {
-        this.setState({ pathname, search });
+        setPathname(newPathname);
+        setSearch(newSearch);
       }
     });
-  }
 
-  componentDidMount() {
-    const { onSessionStarted } = this.props;
-    onSessionStarted();
-  }
+    return () => {
+      unlisten();
+    };
+  }, [pathname, search]);
 
-  render() {
-    const { isPageNotFound } = this.props;
-    const { pathname, search } = this.state;
+  const { Page, pageParams } = getPage(pathname, isPageNotFound);
+  const Layout = getLayout(pathname);
 
-    const { Page, pageParams } = getPage(pathname, isPageNotFound);
-    const Layout = getLayout(pathname);
+  const queryParams = findQueryParams(search);
+  const props = {
+    ...queryParams,
+    ...pageParams,
+  };
 
-    const queryParams = findQueryParams(search);
-    const props = { ...queryParams, ...pageParams };
-
-    return (
-      <Layout>
-        <Page {...props} />
-      </Layout>
-    );
-  }
-}
+  return (
+    <Layout>
+      <Page {...props} />
+    </Layout>
+  );
+};
 
 RouteHandler.propTypes = {
   history: PropTypes.object.isRequired,
@@ -76,7 +72,6 @@ RouteHandler.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    isMobile: state.app.isMobile,
     isPageNotFound: state.app.isPageNotFound,
   };
 };
@@ -92,7 +87,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(RouteHandler);
+export default memo(connect(mapStateToProps, mapDispatchToProps)(RouteHandler));

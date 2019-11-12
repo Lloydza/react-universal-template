@@ -38,8 +38,9 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]',
+              modules: {
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+              },
             },
           },
           {
@@ -69,12 +70,12 @@ module.exports = {
         test: /\.svg$/,
         use: ['@svgr/webpack'],
       },
-    ]
+    ],
   },
   plugins: [
     new webpack.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../src/server/index.html')
+      template: path.resolve(__dirname, '../src/server/index.html'),
     }),
     new OptimizeCssAssetsPlugin(),
     new MiniCssExtractPlugin({

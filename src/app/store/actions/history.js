@@ -35,9 +35,12 @@ export const manageChangeRoute = (newPathname) => {
  * Navigates the back to the appropriate route, or otherwise handles the back click
  * @param  {String} newPathname : The new path name
  */
-export const managePreviousRoute = ({ newPathname }) => {
+export const managePreviousRoute = ({ newPathname }, onSuccess) => {
   return (dispatch) => {
+    // If you are not wanting to nav back but instead show a warning for this route (for example),
+    // then you wouldn't call the below until the user clicks okay
     dispatch(previousRoute());
     dispatch(setPageTitle(newPathname));
+    onSuccess();
   };
 };

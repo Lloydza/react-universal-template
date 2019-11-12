@@ -1,8 +1,8 @@
 import { matchPath } from 'react-router';
 
-import HomePage from 'app/pages/homePage/index';
-import DashboardPage from 'app/pages/dashboardPage/index';
-import NotFoundPage from 'app/pages/notFoundPage/index';
+import HomePage from 'app/pages/HomePage';
+import DashboardPage from 'app/pages/DashboardPage';
+import NotFoundPage from 'app/pages/NotFoundPage';
 
 // Import the required page.
 // Note that this function breaks the mold somewhat, as it updates

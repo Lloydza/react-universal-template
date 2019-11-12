@@ -1,30 +1,31 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button } from 'app/components';
 import { manageChangeRoute } from 'app/store/actions';
 import styles from './styles.scss';
 
-const DashboardPage = (props) => {
-  const { currentRoute, onChangeRoute } = props;
-
-  const handleGoToHomePage = (e) => {
-    e.preventDefault();
-    onChangeRoute('/');
-  };
+const HomePage = ({ currentRoute, onChangeRoute }) => {
+  const handleGoToDashboardPage = useCallback(
+    (e) => {
+      e.preventDefault();
+      onChangeRoute('/dashboard');
+    },
+    [onChangeRoute],
+  );
 
   return (
     <div className={styles.container}>
-      <div>This is the Dashboard Page</div>
+      <div>This is the Home Page</div>
       <div>
         <h3>{`Current route: ${currentRoute}`}</h3>
       </div>
-      <Button text="Go to the home page." onClick={handleGoToHomePage} />
+      <Button text="Go to the dashboard page." onClick={handleGoToDashboardPage} />
     </div>
   );
 };
 
-DashboardPage.propTypes = {
+HomePage.propTypes = {
   currentRoute: PropTypes.string.isRequired,
   onChangeRoute: PropTypes.func.isRequired,
 };
@@ -43,9 +44,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default memo(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(DashboardPage),
-);
+export default memo(connect(mapStateToProps, mapDispatchToProps)(HomePage));
