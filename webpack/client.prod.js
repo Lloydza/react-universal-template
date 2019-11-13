@@ -10,14 +10,14 @@ module.exports = {
   devtool: false,
   mode: 'production',
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.json'],
+    extensions: ['*', '.js', '.ts', '.tsx', '.json'],
     alias: {
       app: path.resolve(__dirname, '../src/app/'),
       server: path.resolve(__dirname, '../src/server/'),
     },
   },
   entry: {
-    main: path.resolve(__dirname, '../src/app/index.prod.jsx'),
+    main: path.resolve(__dirname, '../src/app/index.prod.tsx'),
     vendor: ['react', 'react-redux', 'react-router', 'redux', 'history', 'redux-thunk'],
   },
   output: {
@@ -49,21 +49,10 @@ module.exports = {
         ],
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx)$/,
         include: [path.resolve(__dirname, '../src/')],
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  modules: 'commonjs',
-                },
-              ],
-              '@babel/preset-react',
-            ],
-          },
+          loader: 'ts-loader',
         },
       },
       {

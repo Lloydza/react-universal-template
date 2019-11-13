@@ -10,13 +10,13 @@ module.exports = {
   devtool: 'eval-source-map',
   mode: 'development',
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.json'],
+    extensions: ['*', '.js', '.ts', '.tsx', '.json'],
     alias: {
       app: path.resolve(__dirname, '../src/app/'),
       server: path.resolve(__dirname, '../src/server/'),
     },
   },
-  entry: ['webpack-hot-middleware/client', path.resolve(__dirname, '../src/app/index.dev.jsx')],
+  entry: ['webpack-hot-middleware/client', path.resolve(__dirname, '../src/app/index.dev.tsx')],
   output: {
     filename: 'bundle.js',
     chunkFilename: 'vendor.js',
@@ -46,10 +46,10 @@ module.exports = {
         ],
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx)$/,
         include: [path.resolve(__dirname, '../src/')],
         use: {
-          loader: 'babel-loader',
+          loader: 'ts-loader',
         },
       },
       {

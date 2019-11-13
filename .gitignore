@@ -54,32 +54,17 @@ jspm_packages/
 build/
 dist/
 
-# TypeScript v1 declaration files
-typings/
-
 # Optional npm cache directory
 .npm
 
 # Optional eslint cache
 .eslintcache
 
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz
-
 # Yarn Integrity file
 .yarn-integrity
 
+# Yarn Error file
+yarn-error.log
+
 # dotenv environment variables file
 .env
-
-# next.js build output
-.next
-
-# vuepress build output
-.vuepress/dist
-
-# Serverless directories
-.serverless

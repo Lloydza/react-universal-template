@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
+    "target": "es6",
+    "baseUrl": "src",
+    "outDir": "./dist/",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "paths": {
+      "app": ["./src/app"]
+    },
+    "lib": ["dom", "es5", "es6"],
+  },
+  "include": ["src/app", "src/server", "tests", "types.d.ts", "src/app/store/types.d.ts"],
+  "exclude": ["node_modules/", "dist/"]
+}
