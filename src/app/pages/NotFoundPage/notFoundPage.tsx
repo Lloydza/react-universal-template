@@ -4,13 +4,13 @@ import styles from './styles.scss';
 
 interface NotFoundPageProps {
   currentRoute: string;
-  manageChangeRoute: (route: string) => void;
+  onManageChangeRoute: (route: string) => void;
 }
 
-const NotFoundPage = ({ currentRoute, manageChangeRoute }: NotFoundPageProps): JSX.Element => {
+const NotFoundPage = ({ currentRoute, onManageChangeRoute }: NotFoundPageProps): JSX.Element => {
   const handleGoToHomePage = useCallback((e: GenericObject) => {
     e.preventDefault();
-    manageChangeRoute('/');
+    onManageChangeRoute('/');
   }, []);
 
   return (

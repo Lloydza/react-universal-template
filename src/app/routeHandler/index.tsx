@@ -82,15 +82,9 @@ const mapStateToProps = (state: ReduxState): GenericObject => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): GenericObject => {
-  return {
-    onSessionStarted: (): void => {
-      dispatch(sessionStarted());
-    },
-    onManagePreviousRoute: (options: ManagePreviousRouteOptions, onSuccess: () => void): void => {
-      dispatch(managePreviousRoute(options, onSuccess));
-    },
-  };
+const mapDispatchToProps = {
+  onSessionStarted: sessionStarted,
+  onManagePreviousRoute: managePreviousRoute,
 };
 
 export default memo(connect(mapStateToProps, mapDispatchToProps)(RouteHandler));

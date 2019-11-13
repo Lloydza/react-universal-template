@@ -4,13 +4,13 @@ import styles from './styles.scss';
 
 interface DashboardPageProps {
   currentRoute: string;
-  manageChangeRoute: (route: string) => void;
+  onManageChangeRoute: (route: string) => void;
 }
 
-const DashboardPage = ({ currentRoute, manageChangeRoute }: DashboardPageProps): JSX.Element => {
+const DashboardPage = ({ currentRoute, onManageChangeRoute }: DashboardPageProps): JSX.Element => {
   const handleGoToHomePage = useCallback((e: GenericObject) => {
     e.preventDefault();
-    manageChangeRoute('/');
+    onManageChangeRoute('/');
   }, []);
 
   return (

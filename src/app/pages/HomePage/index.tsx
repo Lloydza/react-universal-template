@@ -10,7 +10,7 @@ const mapStateToProps = (state: ReduxState): GenericObject => {
 };
 
 const mapDispatchToProps = {
-  manageChangeRoute,
+  onManageChangeRoute: manageChangeRoute,
 };
 
 export default AppLoadingWrapper(connect(mapStateToProps, mapDispatchToProps)(HomePage));
