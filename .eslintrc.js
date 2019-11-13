@@ -60,7 +60,7 @@ module.exports = {
     ],
     "no-param-reassign": ["error", {
       props: true,
-      ignorePropertyModificationsFor: ["draft"],
+      ignorePropertyModificationsFor: ["draft", "ctx"],
     }],
     'quotes': ['error', 'single', { avoidEscape: true }],
     'prettier/prettier': 'error',
