@@ -7,7 +7,7 @@
 
 ```In bash
 yarn install
-yarn run local
+yarn run dev
 ```
 
 The site should be running on http://localhost:3000

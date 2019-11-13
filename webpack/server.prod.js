@@ -14,7 +14,7 @@ module.exports = {
       server: path.resolve(__dirname, '../src/server/'),
     },
   },
-  entry: path.resolve(__dirname, '../src/server/server.prod.ts'),
+  entry: path.resolve(__dirname, '../src/server/server.prod.js'),
   output: {
     path: path.resolve(__dirname, '../dist/server'),
     filename: '[name].js',

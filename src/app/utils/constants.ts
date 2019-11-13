@@ -1,25 +1,19 @@
-// **********NB*********** CHANGE THE ENV_LEVEL FOR LIVE BUILDS!
-export const ENV_LEVEL: number = typeof ENVIRONMENT_LEVEL !== 'undefined' && ENVIRONMENT_LEVEL ? ENVIRONMENT_LEVEL : 3;
+const ENV_LEVEL: number = typeof ENVIRONMENT_LEVEL !== 'undefined' && ENVIRONMENT_LEVEL ? ENVIRONMENT_LEVEL : 1;
 const IS_LOCAL_INSTANCE = typeof IS_LOCAL !== 'undefined' && IS_LOCAL ? IS_LOCAL : false;
 
 let BASE_DOMAIN;
-if (ENV_LEVEL === 4) {
+if (ENV_LEVEL === 1) {
   // Production
   BASE_DOMAIN = 'mydomain.com';
-} else if (ENV_LEVEL === 3) {
-  // UAT
-  BASE_DOMAIN = 'uat.mydomain.com';
-} else if (ENV_LEVEL === 2) {
-  // DEV
-  BASE_DOMAIN = 'dev.mydomain.com';
 } else {
-  // LOCAL
+  // UAT
   BASE_DOMAIN = 'uat.mydomain.com';
 }
 
 export const WEB_URL = IS_LOCAL_INSTANCE ? 'http://localhost:3000' : `https://www.${BASE_DOMAIN}`;
-export const API_URL = `https://api.${BASE_DOMAIN}`;
-export const STATIC_URL = `https://static.${BASE_DOMAIN}`;
+export const API_URL = IS_LOCAL_INSTANCE ? 'http://localhost:4000' : `https://api.${BASE_DOMAIN}`;
+export const STATIC_URL = IS_LOCAL_INSTANCE ? '' : `https://static.${BASE_DOMAIN}`;
+export const IS_PROD = !IS_LOCAL_INSTANCE && ENV_LEVEL === 1;
 export const LANDING_PAGE_ROUTE = '/';
 export const PATH_PAGE_TITLES = {
   '/': 'Home Page',
