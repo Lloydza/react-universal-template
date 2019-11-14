@@ -9,13 +9,14 @@ module.exports = {
   devtool: 'eval-source-map',
   mode: 'development',
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.json'],
+    extensions: ['*', '.js', '.ts', '.tsx', '.json'],
     alias: {
       app: path.resolve(__dirname, '../src/app/'),
       server: path.resolve(__dirname, '../src/server/'),
+      utils: path.resolve(__dirname, '../src/utils/'),
     },
   },
-  entry: ['webpack-hot-middleware/client', path.resolve(__dirname, '../src/app/index.dev.jsx')],
+  entry: ['webpack-hot-middleware/client', path.resolve(__dirname, '../src/app/index.dev.tsx')],
   output: {
     filename: 'bundle.js',
     chunkFilename: 'vendor.js',
@@ -34,8 +35,9 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]',
+              modules: {
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+              },
             },
           },
           {
@@ -44,10 +46,10 @@ module.exports = {
         ],
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx)$/,
         include: [path.resolve(__dirname, '../src/')],
         use: {
-          loader: 'babel-loader',
+          loader: 'ts-loader',
         },
       },
       {
@@ -59,10 +61,10 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new WriteFilePlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new MiniCssExtractPlugin({
       filename: 'styles.css',
     }),
-    new webpack.NoEmitOnErrorsPlugin(),
   ],
   optimization: {
     minimize: false,

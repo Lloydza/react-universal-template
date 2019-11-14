@@ -8,13 +8,14 @@ module.exports = {
   devtool: false,
   mode: 'production',
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.json'],
+    extensions: ['*', '.js', '.ts', '.tsx', '.json'],
     alias: {
       app: path.resolve(__dirname, '../src/app/'),
       server: path.resolve(__dirname, '../src/server/'),
+      utils: path.resolve(__dirname, '../src/utils/'),
     },
   },
-  entry: path.resolve(__dirname, '../src/server/server.prod.js'),
+  entry: path.resolve(__dirname, '../src/server/server.prod.ts'),
   output: {
     path: path.resolve(__dirname, '../dist/server'),
     filename: '[name].js',
@@ -30,9 +31,10 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              exportOnlyLocals: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]',
+              onlyLocals: true,
+              modules: {
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+              },
             },
           },
           {
@@ -41,10 +43,10 @@ module.exports = {
         ],
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx)$/,
         include: [path.resolve(__dirname, '../src/')],
         use: {
-          loader: 'babel-loader',
+          loader: 'ts-loader',
         },
       },
       {

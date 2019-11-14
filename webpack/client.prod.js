@@ -11,13 +11,17 @@ module.exports = {
   devtool: false,
   mode: 'production',
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.json'],
+    extensions: ['*', '.js', '.ts', '.tsx', '.json'],
     alias: {
       app: path.resolve(__dirname, '../src/app/'),
       server: path.resolve(__dirname, '../src/server/'),
+      utils: path.resolve(__dirname, '../src/utils/'),
     },
   },
-  entry: path.resolve(__dirname, '../src/app/index.prod.jsx'),
+  entry: {
+    main: path.resolve(__dirname, '../src/app/index.prod.tsx'),
+    vendor: ['react', 'react-redux', 'react-router', 'redux', 'history', 'redux-thunk'],
+  },
   output: {
     filename: 'bundle.[chunkhash].js',
     chunkFilename: 'vendor.[chunkhash].js',
@@ -36,8 +40,9 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]',
+              modules: {
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+              },
             },
           },
           {
@@ -46,10 +51,10 @@ module.exports = {
         ],
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx)$/,
         include: [path.resolve(__dirname, '../src/')],
         use: {
-          loader: 'babel-loader',
+          loader: 'ts-loader',
         },
       },
       {
@@ -59,15 +64,15 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.HashedModuleIdsPlugin(),
     new WriteFilePlugin(),
     new StatsWriterPlugin({
       filename: '../stats.json',
     }),
+    new OptimizeCssAssetsPlugin(),
     new MiniCssExtractPlugin({
       filename: 'styles.[chunkhash].css',
     }),
-    new OptimizeCssAssetsPlugin(),
-    new webpack.HashedModuleIdsPlugin(),
   ],
   optimization: {
     minimize: true,
