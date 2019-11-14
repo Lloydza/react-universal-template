@@ -14,6 +14,7 @@ module.exports = {
     alias: {
       app: path.resolve(__dirname, '../src/app/'),
       server: path.resolve(__dirname, '../src/server/'),
+      utils: path.resolve(__dirname, '../src/utils/'),
     },
   },
   entry: {

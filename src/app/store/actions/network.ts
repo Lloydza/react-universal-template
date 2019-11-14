@@ -1,5 +1,5 @@
-import { API_URL } from 'app/utils/constants';
-import { error } from 'app/utils/utilFunctions';
+import { API_URL } from 'utils/constants';
+import { error } from 'utils/utilFunctions';
 import { updateSessionAccessToken } from 'app/store/actions';
 
 /**

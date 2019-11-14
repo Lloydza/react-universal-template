@@ -1,5 +1,5 @@
-import { WEB_URL, LANDING_PAGE_ROUTE } from 'app/utils/constants';
-import { createReduxActions } from 'app/utils/utilFunctions';
+import { WEB_URL, LANDING_PAGE_ROUTE } from 'utils/constants';
+import { createReduxActions } from 'utils/utilFunctions';
 
 export const UPDATE_SESSION_USER = 'UPDATE_SESSION_USER';
 export const UPDATE_SESSION_ACCESS_TOKEN = 'UPDATE_SESSION_ACCESS_TOKEN';

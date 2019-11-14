@@ -1,7 +1,7 @@
 import produce from 'immer';
 
 import * as actions from 'app/store/actions';
-import { DEFAULT_META } from 'app/utils/constants';
+import { DEFAULT_META } from 'utils/constants';
 
 export const defaultState = (): AppState => {
   return {

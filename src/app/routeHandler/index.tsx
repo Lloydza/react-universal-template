@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { findQueryParams } from 'app/utils/utilFunctions';
+import { findQueryParams } from 'utils/utilFunctions';
 import { sessionStarted, managePreviousRoute, ManagePreviousRouteOptions } from 'app/store/actions';
 import getLayout from './layoutImporter';
 import getPage from './pageImporter';

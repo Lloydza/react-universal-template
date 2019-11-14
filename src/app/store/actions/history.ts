@@ -1,4 +1,4 @@
-import { createReduxActions } from 'app/utils/utilFunctions';
+import { createReduxActions } from 'utils/utilFunctions';
 import getHistory from 'app/store/history';
 import { updateAppIsPageNotFound, setPageTitle } from 'app/store/actions';
 

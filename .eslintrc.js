@@ -26,7 +26,7 @@ module.exports = {
     'import/ignore': ['node_modules', '\\.less$', '\\.css$', '\\.(png|jpg|gif)$'],
     'import/resolver': {
       node: {
-        paths: ['./src', './tests/__tests__'],
+        paths: ['./src', './src/tests/__tests__'],
         extensions: [".js", ".jsx", ".ts", ".tsx"],
       },
     },
@@ -45,7 +45,6 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   rules: {
-    'semi': ['error', 'always'],
     'max-len': [
       'error',
       {
@@ -137,7 +136,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/**/*.js', 'tests/mocks/*'],
+      files: ['src/**/*.js', 'src/tests/mocks/*'],
       rules: {
         '@typescript-eslint/no-unused-vars': "off",
         '@typescript-eslint/explicit-function-return-type': "off",

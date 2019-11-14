@@ -34,5 +34,11 @@ interface ReduxState {
   session: SessionState;
 }
 
+interface Store {
+  dispatch: Dispatch;
+  getState: GetState;
+  replaceReducer: (reducer: any) => void;
+}
+
 type Dispatch = (...args: any[]) => any;
 type GetState = () => ReduxState;

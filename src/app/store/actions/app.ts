@@ -1,5 +1,5 @@
-import { PATH_PAGE_TITLES, DEFAULT_META } from 'app/utils/constants';
-import { createReduxActions } from 'app/utils/utilFunctions';
+import { PATH_PAGE_TITLES, DEFAULT_META } from 'utils/constants';
+import { createReduxActions } from 'utils/utilFunctions';
 
 export const UPDATE_APP_IS_LOADING = 'UPDATE_APP_IS_LOADING';
 export const UPDATE_APP_IS_PAGE_NOT_FOUND = 'UPDATE_APP_IS_PAGE_NOT_FOUND';

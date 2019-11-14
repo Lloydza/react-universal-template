@@ -11,9 +11,9 @@
   "scripts": {
     "build": "npm run clean && cross-env NODE_ENV=production webpack -p --config webpack/client.prod.js && webpack -p --config webpack/server.prod.js && cp -rT static dist/static",
     "start": "cross-env NODE_ENV=production node dist/server/main.js",
-    "dev": "npm run clean && cross-env ENVIRONMENT_LEVEL=2 IS_LOCAL=true NODE_ENV=development ts-node-dev --respawn --transpileOnly src/server/server.dev.ts",
+    "dev": "npm run clean && cross-env ENVIRONMENT_LEVEL=2 IS_LOCAL=true NODE_ENV=development ts-node-dev --respawn --transpileOnly -r tsconfig-paths/register src/server/server.dev.ts",
     "clean": "rimraf dist",
-    "lint": "eslint --ext .ts,.tsx,.js,.jsx src tests --fix",
+    "lint": "eslint --ext .ts,.tsx,.js,.jsx src --fix",
     "test": "jest --config jest.config.json --watch"
   },
   "dependencies": {
@@ -39,6 +39,7 @@
     "react-router": "^5.1.2",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
+    "tsconfig-paths": "^3.9.0",
     "ts-node-dev": "^1.0.0-pre.44",
     "webpack": "^4.41.2",
     "webpack-dev-middleware": "^3.7.2",

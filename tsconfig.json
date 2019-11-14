@@ -8,11 +8,16 @@
     "outDir": "./dist/",
     "jsx": "react",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "paths": {
-      "app": ["./src/app"]
+      "app": ["src/app"],
+      "server": ["src/server"],
+      "tests": ["src/tests"],
+      "types": ["src/types"],
+      "utils": ["src/utils"],
     },
     "lib": ["dom", "es5", "es6"],
   },
-  "include": ["src/app", "src/server", "tests", "types.d.ts", "src/app/store/types.d.ts"],
+  "include": ["src"],
   "exclude": ["node_modules/", "dist/"]
 }

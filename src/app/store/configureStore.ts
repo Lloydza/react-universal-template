@@ -1,7 +1,7 @@
 /* eslint global-require: 0 */
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { findQueryParams } from 'app/utils/utilFunctions';
+import { findQueryParams } from 'utils/utilFunctions';
 import { setPageTitle } from './actions';
 import { defaultState as defaultHistoryState } from './reducers/history';
 import getHistory from './history';

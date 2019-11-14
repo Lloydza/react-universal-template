@@ -1,7 +1,7 @@
 import produce from 'immer';
 
 import * as actions from 'app/store/actions';
-import { findQueryParams } from 'app/utils/utilFunctions';
+import { findQueryParams } from 'utils/utilFunctions';
 
 export const defaultState = (): HistoryState => {
   return { stack: [], currentRoute: '/', currentQueryParams: {} };
