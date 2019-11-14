@@ -5,7 +5,17 @@ describe('Store -> actions -> app', () => {
   test('exists', () => {
     const store = configureStore();
     const state = store.getState();
-    expect(state).toEqual(expect.objectContaining({ app: expect.any(Object) }));
+    expect(state).toBeInstanceOf(Object);
+    expect(state.app).toBeInstanceOf(Object);
+    expect(state).toEqual(
+      expect.objectContaining({
+        app: {
+          isLoading: expect.any(Boolean),
+          isPageNotFound: expect.any(Boolean),
+          pageTitle: expect.any(String),
+        },
+      }),
+    );
   });
 
   test('updates isLoading correctly', () => {
