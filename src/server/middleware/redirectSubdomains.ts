@@ -1,8 +1,8 @@
+import Koa from 'koa';
+
 // Used to redirect if a request is made to the wrong sub-domain
-
 const redirectDomains = [];
-
-const redirectSubdomains = async (ctx, next) => {
+const redirectSubdomains = async (ctx: Koa.Context, next: Koa.Next): Promise<void> => {
   const { hostname, protocol, originalUrl } = ctx;
   if (redirectDomains.includes(hostname)) {
     ctx.status = 302;
@@ -13,4 +13,4 @@ const redirectSubdomains = async (ctx, next) => {
   await next();
 };
 
-module.exports = redirectSubdomains;
+export default redirectSubdomains;

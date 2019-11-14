@@ -1,26 +1,28 @@
-const fs = require('fs');
-const Koa = require('koa');
-const helmet = require('koa-helmet');
-const bodyParser = require('koa-bodyparser');
-const serve = require('koa-static');
-const Router = require('koa-router');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('koa-webpack-dev-middleware');
-const webpackHotMiddleware = require('koa-webpack-hot-middleware');
-const logger = require('./middleware/logger');
-const redirectSubdomains = require('./middleware/redirectSubdomains');
-const health = require('./middleware/health');
-
-const clientConfig = require('../../webpack/client.dev.js');
+import fs from 'fs';
+import Koa from 'koa';
+import helmet from 'koa-helmet';
+import bodyParser from 'koa-bodyparser';
+import serve from 'koa-static';
+import Router from 'koa-router';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'koa-webpack-dev-middleware';
+import webpackHotMiddleware from 'koa-webpack-hot-middleware';
+import logger from './middleware/logger';
+import redirectSubdomains from './middleware/redirectSubdomains';
+import health from './middleware/health';
+import clientConfig from '../../webpack/client.dev';
 
 const compiler = webpack(clientConfig);
 
-const createServer = () => {
+const createServer = (): Koa => {
   const router = new Router();
-  router.get('*', async (ctx) => {
-    ctx.type = 'html';
-    ctx.body = fs.createReadStream('dist/static/index.html');
-  });
+  router.get(
+    '*',
+    async (ctx: Koa.Context): Promise<void> => {
+      ctx.type = 'html';
+      ctx.body = fs.createReadStream('dist/static/index.html');
+    },
+  );
 
   const koaServer = new Koa();
   koaServer.use(

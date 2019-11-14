@@ -1,17 +1,17 @@
-const fs = require('fs');
-const Koa = require('koa');
-const compress = require('koa-compress');
-const helmet = require('koa-helmet');
-const bodyParser = require('koa-bodyparser');
-const serve = require('koa-static');
-const Router = require('koa-router');
-const logger = require('./middleware/logger');
-const redirectSubdomains = require('./middleware/redirectSubdomains');
-const health = require('./middleware/health');
+import fs from 'fs';
+import Koa from 'koa';
+import compress from 'koa-compress';
+import helmet from 'koa-helmet';
+import bodyParser from 'koa-bodyparser';
+import serve from 'koa-static';
+import Router from 'koa-router';
+import logger from './middleware/logger';
+import redirectSubdomains from './middleware/redirectSubdomains';
+import health from './middleware/health';
 
-const createServer = () => {
+const createServer = (): Koa => {
   const router = new Router();
-  router.get('*', async (ctx) => {
+  router.get('*', async (ctx: Koa.Context) => {
     ctx.type = 'html';
     ctx.body = fs.createReadStream('dist/static/index.html');
   });
