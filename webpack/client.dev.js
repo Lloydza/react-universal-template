@@ -18,7 +18,7 @@ module.exports = {
   },
   entry: [
     'react-hot-loader/patch',
-    'webpack-hot-middleware/client',
+    'webpack-hot-middleware/client?noInfo=true',
     path.resolve(__dirname, '../src/app/index.dev.tsx'),
   ],
   output: {
