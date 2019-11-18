@@ -1,10 +1,8 @@
-import React, { useCallback, memo } from 'react';
+import React, { memo } from 'react';
 import { Button } from 'app/components';
 import styles from './styles.scss';
 
 interface DashboardPageProps {
-  currentRoute: string;
-  onManageChangeRoute: (route: string) => void;
   user: {
     userId: string;
     firstName: string;
@@ -15,14 +13,11 @@ interface DashboardPageProps {
       text: string;
     };
   };
+  currentRoute: string;
+  goToHomePage: () => void;
 }
 
-const DashboardPage = ({ user, currentRoute, onManageChangeRoute }: DashboardPageProps): JSX.Element => {
-  const handleGoToHomePage = useCallback((e: GenericObject) => {
-    e.preventDefault();
-    onManageChangeRoute('/');
-  }, []);
-
+const DashboardPage = ({ user, currentRoute, goToHomePage }: DashboardPageProps): JSX.Element => {
   return (
     <div className={styles.container}>
       <div>This is the Dashboard Page</div>
@@ -33,7 +28,7 @@ const DashboardPage = ({ user, currentRoute, onManageChangeRoute }: DashboardPag
         <h3>Data is:</h3>
         {JSON.stringify(user)}
       </div>
-      <Button text="Go to the home page." onClick={handleGoToHomePage} />
+      <Button text="Go to the home page." onClick={goToHomePage} />
     </div>
   );
 };

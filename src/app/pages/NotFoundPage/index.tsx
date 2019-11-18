@@ -1,15 +1,19 @@
-import { connect } from 'react-redux';
+import React, { memo, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { manageChangeRoute } from 'app/store/actions';
 import NotFoundPage from './notFoundPage';
 
-const mapStateToProps = (state: ReduxState): GenericObject => {
-  return {
-    currentRoute: state.history.currentRoute,
-  };
+const NotFoundPageContainer = (): JSX.Element => {
+  const dispatch = useDispatch();
+  const currentRoute = useSelector((state: ReduxState) => {
+    return state.history.currentRoute;
+  });
+
+  const goToHomePage = useCallback(() => {
+    return dispatch(manageChangeRoute('/'));
+  }, [dispatch]);
+
+  return <NotFoundPage currentRoute={currentRoute} goToHomePage={goToHomePage} />;
 };
 
-const mapDispatchToProps = {
-  onManageChangeRoute: manageChangeRoute,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NotFoundPage);
+export default memo(NotFoundPageContainer);

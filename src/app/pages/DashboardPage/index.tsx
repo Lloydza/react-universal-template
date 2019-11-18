@@ -1,9 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { manageChangeRoute } from 'app/store/actions';
-import { AppLoadingWrapper } from 'app/wrappers';
 import { Loader } from 'app/components';
 import { Error } from 'app/views';
 import DashboardPage from './dashboardPage';
@@ -23,12 +22,20 @@ const MY_QUERY = gql`
   }
 `;
 
-interface DashboardPageContainerProps {
-  currentRoute: string;
-  onManageChangeRoute: (route: string) => void;
-}
+const DashboardPageContainer = (): JSX.Element => {
+  const dispatch = useDispatch();
+  const currentRoute = useSelector((state: ReduxState) => {
+    return state.history.currentRoute;
+  });
 
-const DashboardPageContainer = (props: DashboardPageContainerProps): JSX.Element => {
+  const isAppLoading = useSelector((state: ReduxState) => {
+    return state.app.isLoading;
+  });
+
+  const goToHomePage = useCallback(() => {
+    return dispatch(manageChangeRoute('/'));
+  }, [dispatch]);
+
   const { loading, error, data, refetch } = useQuery(MY_QUERY, {
     variables: {
       userId: 'befeOyRy4s86Br14btRxC5v7wH5dJBAlk89be',
@@ -39,7 +46,7 @@ const DashboardPageContainer = (props: DashboardPageContainerProps): JSX.Element
     refetch();
   }, []);
 
-  if (loading) {
+  if (isAppLoading || loading) {
     return <Loader />;
   }
 
@@ -47,17 +54,7 @@ const DashboardPageContainer = (props: DashboardPageContainerProps): JSX.Element
     return <Error retry={retry} />;
   }
 
-  return <DashboardPage user={data.user} {...props} />;
+  return <DashboardPage user={data.user} currentRoute={currentRoute} goToHomePage={goToHomePage} />;
 };
 
-const mapStateToProps = (state: ReduxState): GenericObject => {
-  return {
-    currentRoute: state.history.currentRoute,
-  };
-};
-
-const mapDispatchToProps = {
-  onManageChangeRoute: manageChangeRoute,
-};
-
-export default AppLoadingWrapper(connect(mapStateToProps, mapDispatchToProps)(DashboardPageContainer));
+export default memo(DashboardPageContainer);
