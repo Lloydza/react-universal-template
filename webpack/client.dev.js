@@ -17,7 +17,11 @@ module.exports = {
       utils: path.resolve(__dirname, '../src/utils/'),
     },
   },
-  entry: ['webpack-hot-middleware/client', path.resolve(__dirname, '../src/app/index.dev.tsx')],
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-hot-middleware/client',
+    path.resolve(__dirname, '../src/app/index.dev.tsx'),
+  ],
   output: {
     filename: 'bundle.js',
     chunkFilename: 'vendor.js',
@@ -32,6 +36,9 @@ module.exports = {
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: true,
+            },
           },
           {
             loader: 'css-loader',
