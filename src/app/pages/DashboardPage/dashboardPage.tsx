@@ -1,6 +1,23 @@
 import React, { useCallback, memo } from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 import { Button } from 'app/components';
 import styles from './styles.scss';
+
+const MY_QUERY = gql`
+  query GetUser($userId: ID!) {
+    user(userId: $userId) {
+      userId
+      firstName
+      lastName
+      username
+      messages {
+        messageId
+        text
+      }
+    }
+  }
+`;
 
 interface DashboardPageProps {
   currentRoute: string;
@@ -8,6 +25,15 @@ interface DashboardPageProps {
 }
 
 const DashboardPage = ({ currentRoute, onManageChangeRoute }: DashboardPageProps): JSX.Element => {
+  const { loading, error, data } = useQuery(MY_QUERY, {
+    variables: {
+      userId: 'befeOyRy4s86Br14btRxC5v7wH5dJBAlk89be',
+    },
+  });
+  console.log('loading: ', loading);
+  console.log('error: ', error);
+  console.log('data: ', data);
+
   const handleGoToHomePage = useCallback((e: GenericObject) => {
     e.preventDefault();
     onManageChangeRoute('/');

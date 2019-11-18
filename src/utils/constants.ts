@@ -12,6 +12,7 @@ if (ENV_LEVEL === 1) {
 
 export const WEB_URL = IS_LOCAL_INSTANCE ? 'http://localhost:3000' : `https://www.${BASE_DOMAIN}`;
 export const API_URL = IS_LOCAL_INSTANCE ? 'http://localhost:4000' : `https://api.${BASE_DOMAIN}`;
+export const GRAPH_QL_URL = `${API_URL}/graphql`;
 export const STATIC_URL = IS_LOCAL_INSTANCE ? '' : `https://static.${BASE_DOMAIN}`;
 export const IS_PROD = !IS_LOCAL_INSTANCE && ENV_LEVEL === 1;
 export const LANDING_PAGE_ROUTE = '/';
