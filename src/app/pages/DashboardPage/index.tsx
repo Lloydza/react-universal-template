@@ -1,16 +1,28 @@
-import { AppLoadingWrapper } from 'app/wrappers';
-import { connect } from 'react-redux';
+import React, { memo, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { manageChangeRoute } from 'app/store/actions';
+import { Loader } from 'app/components';
 import DashboardPage from './dashboardPage';
 
-const mapStateToProps = (state: ReduxState): GenericObject => {
-  return {
-    currentRoute: state.history.currentRoute,
-  };
+const DashboardPageContainer = (): JSX.Element => {
+  const dispatch = useDispatch();
+  const currentRoute = useSelector((state: ReduxState) => {
+    return state.history.currentRoute;
+  });
+
+  const isAppLoading = useSelector((state: ReduxState) => {
+    return state.app.isLoading;
+  });
+
+  const goToHomePage = useCallback(() => {
+    return dispatch(manageChangeRoute('/'));
+  }, [dispatch]);
+
+  if (isAppLoading) {
+    return <Loader />;
+  }
+
+  return <DashboardPage currentRoute={currentRoute} goToHomePage={goToHomePage} />;
 };
 
-const mapDispatchToProps = {
-  onManageChangeRoute: manageChangeRoute,
-};
-
-export default AppLoadingWrapper(connect(mapStateToProps, mapDispatchToProps)(DashboardPage));
+export default memo(DashboardPageContainer);
