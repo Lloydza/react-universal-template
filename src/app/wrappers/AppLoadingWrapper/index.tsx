@@ -6,9 +6,9 @@ import { Loader } from 'app/components';
 // to show a loader in a standardized way, and potentially handle errors etc
 const AppLoadingWrapper = (Page: FunctionComponent): FunctionComponent => {
   const AppLoadingWrapperComponent = (props: GenericObject): JSX.Element => {
-    const { isAppLoading, isPageLoading } = props;
+    const { isAppLoading } = props;
 
-    if (isPageLoading || isAppLoading) {
+    if (isAppLoading) {
       return <Loader />;
     }
 

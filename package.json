@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Lloydza/react-universal-template/tree/client-side-rendering"
+    "url": "https://github.com/Lloydza/react-universal-template/tree/client-side-rendering-graphql"
   },
   "scripts": {
     "build": "npm run clean && cross-env NODE_ENV=production webpack -p --config webpack/client.prod.js && webpack -p --config webpack/server.prod.js && cp -rT static dist/static",

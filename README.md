@@ -5,6 +5,8 @@
 
 ## To Run:
 
+NOTE: you will need a graphql server running
+
 ```In bash
 yarn install
 yarn run dev
