@@ -1,25 +1,20 @@
-import React, { useCallback, memo } from 'react';
+import React, { memo } from 'react';
 import { Button } from 'app/components';
 import styles from './styles.scss';
 
 interface DashboardPageProps {
   currentRoute: string;
-  onManageChangeRoute: (route: string) => void;
+  goToHomePage: () => void;
 }
 
-const DashboardPage = ({ currentRoute, onManageChangeRoute }: DashboardPageProps): JSX.Element => {
-  const handleGoToHomePage = useCallback((e: GenericObject) => {
-    e.preventDefault();
-    onManageChangeRoute('/');
-  }, []);
-
+const DashboardPage = ({ currentRoute, goToHomePage }: DashboardPageProps): JSX.Element => {
   return (
     <div className={styles.container}>
       <div>This is the Dashboard Page</div>
       <div>
         <h3>{`Current route: ${currentRoute}`}</h3>
       </div>
-      <Button text="Go to the home page." onClick={handleGoToHomePage} />
+      <Button text="Go to the home page." onClick={goToHomePage} />
     </div>
   );
 };

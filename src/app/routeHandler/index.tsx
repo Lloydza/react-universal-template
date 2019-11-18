@@ -1,5 +1,5 @@
-import React, { memo, useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { memo, useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { findQueryParams } from 'utils/utilFunctions';
 import { sessionStarted, managePreviousRoute, ManagePreviousRouteOptions } from 'app/store/actions';
 import getLayout from './layoutImporter';
@@ -8,20 +8,28 @@ import getPage from './pageImporter';
 // Route handler serves the correct page based on route
 interface RouteHandlerProps {
   history: GenericObject;
-  isPageNotFound: boolean;
-  onSessionStarted: () => void;
-  onManagePreviousRoute: (options: ManagePreviousRouteOptions, onSuccess: () => void) => void;
 }
 interface HistoryProps {
   pathname: string;
   search: string;
 }
-const RouteHandler = ({
-  history,
-  isPageNotFound,
-  onSessionStarted,
-  onManagePreviousRoute,
-}: RouteHandlerProps): JSX.Element => {
+const RouteHandler = ({ history }: RouteHandlerProps): JSX.Element => {
+  const dispatch = useDispatch();
+  const isPageNotFound = useSelector((state: ReduxState) => {
+    return state.app.isPageNotFound;
+  });
+
+  const onSessionStarted = useCallback(() => {
+    dispatch(sessionStarted());
+  }, [dispatch]);
+
+  const onManagePreviousRoute = useCallback(
+    (props: ManagePreviousRouteOptions, onSuccess: () => void) => {
+      dispatch(managePreviousRoute(props, onSuccess));
+    },
+    [dispatch],
+  );
+
   const [pathname, setPathname] = useState(history.location.pathname);
   const [search, setSearch] = useState(history.location.search);
 
@@ -76,15 +84,4 @@ const RouteHandler = ({
   );
 };
 
-const mapStateToProps = (state: ReduxState): GenericObject => {
-  return {
-    isPageNotFound: state.app.isPageNotFound,
-  };
-};
-
-const mapDispatchToProps = {
-  onSessionStarted: sessionStarted,
-  onManagePreviousRoute: managePreviousRoute,
-};
-
-export default memo(connect(mapStateToProps, mapDispatchToProps)(RouteHandler));
+export default memo(RouteHandler);
