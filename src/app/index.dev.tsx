@@ -1,10 +1,10 @@
 /* eslint global-require: 0 */
 import '@babel/polyfill';
+import 'react-hot-loader';
 import 'whatwg-fetch';
 import React, { FunctionComponent } from 'react';
 import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
-import { hot } from 'react-hot-loader/root';
 import 'app/content/styles/global.scss';
 import RouteHandler from './routeHandler/index';
 import configureStore from './store/configureStore';
@@ -28,12 +28,11 @@ const renderApp = (App: FunctionComponent<{ history: GenericObject }>): void => 
   );
 };
 
+renderApp(RouteHandler);
+
 if (module && module.hot) {
-  hot(renderApp(RouteHandler));
   module.hot.accept(['./routeHandler'], () => {
     const NewRouteHandler = require('./routeHandler/index').default;
     renderApp(NewRouteHandler);
   });
-} else {
-  renderApp(RouteHandler);
 }
