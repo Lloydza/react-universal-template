@@ -1,4 +1,4 @@
-declare module '*.scss';
+declare module '*.css';
 declare let ENVIRONMENT_LEVEL: number;
 declare let IS_LOCAL: boolean;
 

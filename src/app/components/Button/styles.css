@@ -1,5 +1,3 @@
-@import 'app/content/styles/variables.scss';
-
 .button {
   user-select: none;
   white-space: nowrap;

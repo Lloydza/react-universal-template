@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Header, Footer } from 'app/views';
-import styles from './styles.scss';
+import styles from './styles.css';
 
 const DefaultLayout = ({ children }: { children: JSX.Element }): JSX.Element => {
   return (

@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import styles from './styles.scss';
+import styles from './styles.css';
 
 const EmptyLayout = ({ children }: { children: JSX.Element }): JSX.Element => {
   return <div className={styles.container}>{children}</div>;

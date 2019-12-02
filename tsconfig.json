@@ -12,11 +12,11 @@
     "paths": {
       "app": ["src/app"],
       "server": ["src/server"],
-      "tests": ["src/tests"],
+      "tests": ["src/test"],
       "types": ["src/types"],
-      "utils": ["src/utils"],
+      "utils": ["src/utils"]
     },
-    "lib": ["dom", "es5", "es6"],
+    "lib": ["dom", "es5", "es6"]
   },
   "include": ["src"],
   "exclude": ["node_modules/", "dist/"]

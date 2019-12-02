@@ -1,16 +1,8 @@
 /* eslint global-require: 0 */
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { findQueryParams } from 'utils/utilFunctions';
-import { setPageTitle } from './actions';
-import { defaultState as defaultHistoryState } from './reducers/history';
-import getHistory from './history';
-import rootReducer from './reducers/index';
-
-const history = getHistory();
-const { pathname, search } = history.location;
-const currentRoute = `${pathname}${search}`;
-const currentQueryParams = findQueryParams(currentRoute);
+import { setPageTitle } from 'app/store/actions';
+import rootReducer, { defaultState } from 'app/store/reducers/index';
 
 interface Store {
   dispatch: Dispatch;
@@ -18,13 +10,10 @@ interface Store {
   replaceReducer: (reducer: any) => void;
 }
 
-export default (): Store => {
-  const store = createStore(
-    rootReducer,
-    { history: { ...defaultHistoryState(), currentRoute, currentQueryParams } },
-    applyMiddleware(thunk),
-  ) as Store;
+export default (preloadedState: ReduxState = defaultState()): Store => {
+  const store = createStore(rootReducer, preloadedState, applyMiddleware(thunk)) as Store;
 
+  const { currentRoute } = store.getState().history;
   store.dispatch(setPageTitle(currentRoute));
 
   if (module && module.hot) {
