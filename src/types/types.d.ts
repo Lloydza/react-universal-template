@@ -1,5 +1,5 @@
 declare module '*.css';
-declare let ENVIRONMENT_LEVEL: number;
+declare let ENVIRONMENT_LEVEL: string;
 declare let IS_LOCAL: boolean;
 
 interface User {

@@ -1,6 +1,5 @@
 import fs from 'fs';
 import Koa from 'koa';
-import helmet from 'koa-helmet';
 import bodyParser from 'koa-bodyparser';
 import serve from 'koa-static';
 import Router from 'koa-router';
@@ -8,8 +7,6 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'koa-webpack-dev-middleware';
 import webpackHotMiddleware from 'koa-webpack-hot-middleware';
 import logger from './middleware/logger';
-import redirectSubdomains from './middleware/redirectSubdomains';
-import health from './middleware/health';
 import clientConfig from '../../webpack/client.dev';
 
 const compiler = webpack(clientConfig);
@@ -25,18 +22,11 @@ const createServer = (): Koa => {
   );
 
   const koaServer = new Koa();
-  koaServer.use(
-    helmet({
-      hsts: false,
-    }),
-  );
   koaServer.use(logger);
   koaServer.use(bodyParser());
   koaServer.use(serve('static'));
-  koaServer.use(redirectSubdomains);
   koaServer.use(webpackDevMiddleware(compiler));
   koaServer.use(webpackHotMiddleware(compiler));
-  koaServer.use(health);
   koaServer.use(router.routes());
   koaServer.use(router.allowedMethods());
 

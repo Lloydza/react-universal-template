@@ -9,9 +9,9 @@
     "url": "https://github.com/Lloydza/react-universal-template/tree/client-side-rendering-graphql"
   },
   "scripts": {
-    "build": "npm run clean && cross-env NODE_ENV=production webpack -p --config webpack/client.prod.js && webpack -p --config webpack/server.prod.js && cp -rT static dist/static",
-    "start": "cross-env NODE_ENV=production node dist/server/main.js",
-    "dev": "npm run clean && cross-env ENVIRONMENT_LEVEL=2 IS_LOCAL=true NODE_ENV=development ts-node-dev --respawn --transpileOnly -r tsconfig-paths/register src/server/server.dev.ts",
+    "build": "yarn run clean && cross-env NODE_ENV=production webpack -p --config webpack/client.prod.js && cp -rT static dist/static",
+    "prod": "yarn run build && cross-env NODE_ENV=production node --experimental-modules src/server/server.prod.mjs",
+    "start": "yarn run clean && cross-env ENVIRONMENT_LEVEL=DEV IS_LOCAL=true NODE_ENV=development ts-node-dev --respawn --transpileOnly -r tsconfig-paths/register src/server/server.dev.ts",
     "clean": "rimraf dist",
     "lint": "eslint --ext .ts,.tsx,.js,.jsx src --fix",
     "test": "jest --config jest.config.json --watch"
@@ -32,8 +32,6 @@
     "immer": "^5.0.0",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
-    "koa-compress": "^3.0.0",
-    "koa-helmet": "^5.2.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-webpack-dev-middleware": "^2.0.2",

@@ -27,7 +27,7 @@ module.exports = {
     'import/resolver': {
       node: {
         paths: ['./src'],
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        extensions: ['.js', '.mjs', '.ts', '.tsx'],
       },
     },
   },
@@ -43,6 +43,7 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
     tsconfigRootDir: __dirname,
+    extraFileExtensions: ['.mjs'],
   },
   rules: {
     'max-len': [
@@ -139,7 +140,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/**/*.js', 'src/test/mocks/*'],
+      files: ['src/**/*.js', 'src/**/*.mjs', 'src/test/mocks/*'],
       rules: {
         '@typescript-eslint/no-unused-vars': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
