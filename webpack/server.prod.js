@@ -38,6 +38,10 @@ module.exports = {
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),
+    new webpack.DefinePlugin({
+      ENVIRONMENT_LEVEL: process.env.ENVIRONMENT_LEVEL || null,
+      IS_LOCAL: process.env.IS_LOCAL || false,
+    }),
   ],
   optimization: {
     minimize: true,
