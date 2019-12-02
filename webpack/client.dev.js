@@ -31,7 +31,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(css|scss)$/,
+        test: /\.(css)$/,
         exclude: /node_modules/,
         use: [
           {
@@ -49,7 +49,13 @@ module.exports = {
             },
           },
           {
-            loader: 'sass-loader',
+            loader: 'postcss-loader',
+            options: {
+              config: {
+                path: path.resolve(__dirname, '../.postcssrc'),
+              },
+              sourceMap: true,
+            },
           },
         ],
       },

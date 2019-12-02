@@ -1,9 +1,8 @@
 /* eslint global-require: 0 */
-import '@babel/polyfill';
 import React, { FunctionComponent } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import 'app/content/styles/global.scss';
+import 'app/content/styles/global.css';
 import RouteHandler from './routeHandler/index';
 import configureStore from './store/configureStore';
 import getHistory from './store/history';

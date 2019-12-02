@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Button } from 'app/components';
-import styles from './styles.scss';
+import styles from './styles.css';
 
 interface NotFoundPageProps {
   currentRoute: string;

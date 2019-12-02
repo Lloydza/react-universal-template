@@ -1,5 +1,4 @@
 /* eslint global-require: 0 */
-import '@babel/polyfill';
 import 'react-hot-loader';
 import React, { FunctionComponent } from 'react';
 import { render } from 'react-dom';
@@ -8,7 +7,7 @@ import { ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import 'app/content/styles/global.scss';
+import 'app/content/styles/global.css';
 import { GRAPH_QL_URL } from 'utils/constants';
 import RouteHandler from './routeHandler/index';
 import configureStore from './store/configureStore';
