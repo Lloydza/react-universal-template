@@ -1,10 +1,14 @@
 import produce from 'immer';
-
-import * as actions from 'app/store/actions';
 import { findQueryParams } from 'utils/utilFunctions';
+import getHistory from 'app/store/history';
+import * as actions from 'app/store/actions';
 
 export const defaultState = (): HistoryState => {
-  return { stack: [], currentRoute: '/', currentQueryParams: {} };
+  const history = getHistory();
+  const { pathname, search } = history.location;
+  const currentRoute = `${pathname}${search}`;
+  const currentQueryParams = findQueryParams(currentRoute);
+  return { stack: [], currentRoute, currentQueryParams };
 };
 
 export default (state: HistoryState = defaultState(), action: ReduxAction): HistoryState => {

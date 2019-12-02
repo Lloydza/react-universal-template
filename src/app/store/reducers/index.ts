@@ -4,7 +4,7 @@ import session, { defaultState as sessionDefaultState } from './session';
 
 // Using a custom combineReducers() here, so that we can pass the sessionUser down
 // This way, each reducer has access to the session user
-const defaultState = (): ReduxState => {
+export const defaultState = (): ReduxState => {
   return {
     app: appDefaultState(),
     history: historyDefaultState(),

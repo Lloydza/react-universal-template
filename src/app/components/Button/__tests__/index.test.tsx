@@ -1,16 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { Button } from 'app/components';
 
 const buttonText = 'Hello World';
 
 describe('Component -> UI -> Button', () => {
-  test('renders without crashing', () => {
-    shallow(<Button text={buttonText} />);
-  });
-
   test('renders correctly with text', () => {
-    const wrapper = shallow(<Button text={buttonText} />);
-    expect(wrapper.contains(<p>{buttonText}</p>)).toBe(true);
+    const { getByText } = render(<Button text={buttonText} />);
+    expect(getByText(buttonText)).toBeInTheDocument();
   });
 });
