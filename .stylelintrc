@@ -1,0 +1,75 @@
+{
+    "extends": "stylelint-config-recommended",
+    "rules": {
+        "indentation": 4,
+        "no-invalid-double-slash-comments": true,
+        "max-empty-lines": 1,
+        "string-quotes": "single",
+        "unit-case": "lower",
+        "value-keyword-case": "lower",
+        "color-no-hex": true,
+        "selector-max-attribute": 1,
+        "max-nesting-depth": 3,
+        "value-no-vendor-prefix": [
+            true,
+            {
+                "ignoreValues": [
+                    "box",
+                    "sticky",
+                ]
+            }
+        ],
+        "property-no-vendor-prefix": [
+            true,
+            {
+                "ignoreProperties": [
+                    "line-clamp",
+                    "box-orient"
+                ]
+            }
+        ],
+        "selector-no-vendor-prefix": true,
+        "media-feature-name-no-vendor-prefix": true,
+        "at-rule-no-vendor-prefix": true,
+        "selector-no-qualifying-type": true,
+        "selector-max-id": 1,
+        "selector-pseudo-class-no-unknown": [
+            true,
+            {
+                ignorePseudoClasses: ["global"]
+            }
+        ],
+        "media-feature-name-blacklist": [
+            "max-width",
+        ],
+        "property-blacklist": [
+            "font-family"
+        ],
+        "declaration-property-unit-whitelist": {
+            "font-size": ["em", "rem"],
+            "padding": ["em", "%"],
+            "padding-top": ["em", "%"],
+            "padding-right": ["em", "%"],
+            "padding-left": ["em", "%"],
+            "padding-bottom": ["em", "%"],
+            "margin": ["em", "%"],
+            "margin-bottom": ["em", "%"],
+            "margin-top": ["em", "%"],
+            "margin-left": ["em", "%"],
+            "margin-right": ["em", "%"],
+            "grid-row-gap": ["em"],
+            "grid-column-gap": ["em"],
+            "line-height": []
+        },
+        "declaration-property-value-whitelist": {
+            "font-weight": ["var(--font-weight-normal)", "var(--font-weight-bold)"],
+            "box-shadow": ["var(--box-shadow-1)", "var(--box-shadow-2)", "var(--box-shadow-3)"]
+        },
+        "at-rule-no-unknown": [
+            true,
+            {
+                ignoreAtRules: ["mixin"]
+            }
+        ]
+    }
+}

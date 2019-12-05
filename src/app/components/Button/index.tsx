@@ -9,25 +9,23 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-const Button = ({ size, text, onClick, className, disabled }: ButtonProps): JSX.Element => {
-  return (
-    <button
-      type="submit"
-      className={`
+const Button = ({ size, text, onClick, className, disabled }: ButtonProps): JSX.Element => (
+  <button
+    type="submit"
+    className={`
         ${className}
         ${styles.button}
         ${styles[size]}
         ${disabled ? styles.disabled : ''}
       `}
-      onClick={disabled ? null : onClick}
-      tabIndex={0}
-      onKeyPress={disabled ? null : onClick}
-      disabled={disabled}
-    >
-      {text && <p>{text}</p>}
-    </button>
-  );
-};
+    onClick={disabled ? null : onClick}
+    tabIndex={0}
+    onKeyPress={disabled ? null : onClick}
+    disabled={disabled}
+  >
+    {text && <p>{text}</p>}
+  </button>
+);
 
 Button.defaultProps = {
   size: 'medium',

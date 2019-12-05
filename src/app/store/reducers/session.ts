@@ -2,16 +2,14 @@ import produce from 'immer';
 
 import * as actions from 'app/store/actions';
 
-export const defaultState = (): SessionState => {
-  return {
-    user: null,
-    accessToken: null,
-    refreshToken: null,
-  };
-};
+export const defaultState = (): SessionState => ({
+  user: null,
+  accessToken: null,
+  refreshToken: null,
+});
 
-export default (state: SessionState = defaultState(), action: ReduxAction): SessionState => {
-  return produce(state, (draft: SessionState) => {
+export default (state: SessionState = defaultState(), action: ReduxAction): SessionState =>
+  produce(state, (draft: SessionState) => {
     switch (action.type) {
       case actions.UPDATE_SESSION_USER:
         draft.user = action.user;
@@ -26,4 +24,3 @@ export default (state: SessionState = defaultState(), action: ReduxAction): Sess
         return state;
     }
   });
-};

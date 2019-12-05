@@ -5,7 +5,11 @@ export const UPDATE_SESSION_USER = 'UPDATE_SESSION_USER';
 export const UPDATE_SESSION_ACCESS_TOKEN = 'UPDATE_SESSION_ACCESS_TOKEN';
 export const UPDATE_SESSION_REFRESH_TOKEN = 'UPDATE_SESSION_REFRESH_TOKEN';
 
-export const [updateSessionUser, updateSessionAccessToken, updateSessionRefreshToken] = createReduxActions(
+export const [
+  updateSessionUser,
+  updateSessionAccessToken,
+  updateSessionRefreshToken,
+] = createReduxActions(
   { type: UPDATE_SESSION_USER, key: 'user' },
   { type: UPDATE_SESSION_ACCESS_TOKEN, key: 'accessToken' },
   { type: UPDATE_SESSION_REFRESH_TOKEN, key: 'refreshToken' },
@@ -14,20 +18,16 @@ export const [updateSessionUser, updateSessionAccessToken, updateSessionRefreshT
 /**
  * Called when the client loads initially. Handles any start logic
  */
-export const sessionStarted = () => {
-  return async (): Promise<void> => {
-    // Session logic here
-  };
+export const sessionStarted = () => async (): Promise<void> => {
+  // Session logic here
 };
 
 /**
  * Handles the logout logic for the user
  */
-export const logout = () => {
-  return (dispatch: Dispatch): void => {
-    dispatch(updateSessionUser(null));
-    dispatch(updateSessionAccessToken(null));
-    dispatch(updateSessionRefreshToken(null));
-    window.location.href = [WEB_URL, LANDING_PAGE_ROUTE].join('');
-  };
+export const logout = () => (dispatch: Dispatch): void => {
+  dispatch(updateSessionUser(null));
+  dispatch(updateSessionAccessToken(null));
+  dispatch(updateSessionRefreshToken(null));
+  window.location.href = [WEB_URL, LANDING_PAGE_ROUTE].join('');
 };

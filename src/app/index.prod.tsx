@@ -23,8 +23,8 @@ const client = new ApolloClient({
 const store = configureStore();
 const history = getHistory();
 
-const renderApp = (App: FunctionComponent<{ history: GenericObject }>): void => {
-  return render(
+const renderApp = (App: FunctionComponent<{ history: GenericObject }>): void =>
+  render(
     <ApolloProvider client={client}>
       <Provider store={store}>
         <App history={history} />
@@ -32,6 +32,5 @@ const renderApp = (App: FunctionComponent<{ history: GenericObject }>): void => 
     </ApolloProvider>,
     document.getElementById('root'),
   );
-};
 
 renderApp(RouteHandler);

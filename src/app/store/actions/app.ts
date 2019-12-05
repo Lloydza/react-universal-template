@@ -15,18 +15,16 @@ export const [updateAppIsLoading, updateAppIsPageNotFound, updatePageTitle] = cr
  * Sets the page title
  * @param  {String} pathname : The path name to match to the page title
  */
-export const setPageTitle = (pathname: string) => {
-  return (dispatch: Dispatch): void => {
-    try {
-      const cleanedPathname = pathname.split('?')[0];
-      const pageTitle = PATH_PAGE_TITLES[cleanedPathname] || DEFAULT_META.TITLE;
-      if (typeof document !== 'undefined' && document) {
-        document.title = pageTitle;
-      }
-
-      dispatch(updatePageTitle(pageTitle));
-    } catch {
-      // Do nothing
+export const setPageTitle = (pathname: string) => (dispatch: Dispatch): void => {
+  try {
+    const cleanedPathname = pathname.split('?')[0];
+    const pageTitle = PATH_PAGE_TITLES[cleanedPathname] || DEFAULT_META.TITLE;
+    if (typeof document !== 'undefined' && document) {
+      document.title = pageTitle;
     }
-  };
+
+    dispatch(updatePageTitle(pageTitle));
+  } catch {
+    // Do nothing
+  }
 };

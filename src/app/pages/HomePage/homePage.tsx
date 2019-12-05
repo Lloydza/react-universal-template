@@ -7,16 +7,14 @@ interface HomePageProps {
   goToDashboardPage: () => void;
 }
 
-const HomePage = ({ currentRoute, goToDashboardPage }: HomePageProps): JSX.Element => {
-  return (
-    <div className={styles.container}>
-      <div>This is the Home Page</div>
-      <div>
-        <h3>{`Current route: ${currentRoute}`}</h3>
-      </div>
-      <Button text="Go to the dashboard page." onClick={goToDashboardPage} />
+const HomePage = ({ currentRoute, goToDashboardPage }: HomePageProps): JSX.Element => (
+  <div className={styles.container}>
+    <div>This is the Home Page</div>
+    <div>
+      <h3>{`Current route: ${currentRoute}`}</h3>
     </div>
-  );
-};
+    <Button text="Go to the dashboard page." onClick={goToDashboardPage} />
+  </div>
+);
 
 export default memo(HomePage);

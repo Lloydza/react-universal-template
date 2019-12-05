@@ -15,9 +15,7 @@ interface HistoryProps {
 }
 const RouteHandler = ({ history }: RouteHandlerProps): JSX.Element => {
   const dispatch = useDispatch();
-  const isPageNotFound = useSelector((state: ReduxState) => {
-    return state.app.isPageNotFound;
-  });
+  const isPageNotFound = useSelector((state: ReduxState) => state.app.isPageNotFound);
 
   const onSessionStarted = useCallback(() => {
     dispatch(sessionStarted());
@@ -35,38 +33,40 @@ const RouteHandler = ({ history }: RouteHandlerProps): JSX.Element => {
 
   useEffect(() => {
     onSessionStarted();
-  }, []);
+  }, [onSessionStarted]);
 
   useEffect(() => {
-    const unlisten = history.listen(({ pathname: newPathname, search: newSearch }: HistoryProps, action: string) => {
-      if (pathname + search === newPathname + newSearch) {
-        return;
-      }
+    const unlisten = history.listen(
+      ({ pathname: newPathname, search: newSearch }: HistoryProps, action: string) => {
+        if (pathname + search === newPathname + newSearch) {
+          return;
+        }
 
-      if (action === 'POP') {
-        onManagePreviousRoute(
-          {
-            history,
-            currentPathname: pathname,
-            currentSearch: search,
-            newPathname,
-            newSearch,
-          },
-          () => {
-            setPathname(newPathname);
-            setSearch(newSearch);
-          },
-        );
-      } else {
-        setPathname(newPathname);
-        setSearch(newSearch);
-      }
-    });
+        if (action === 'POP') {
+          onManagePreviousRoute(
+            {
+              history,
+              currentPathname: pathname,
+              currentSearch: search,
+              newPathname,
+              newSearch,
+            },
+            () => {
+              setPathname(newPathname);
+              setSearch(newSearch);
+            },
+          );
+        } else {
+          setPathname(newPathname);
+          setSearch(newSearch);
+        }
+      },
+    );
 
     return (): void => {
       unlisten();
     };
-  }, [pathname, search]);
+  }, [history, onManagePreviousRoute, pathname, search]);
 
   const { Page, pageParams } = getPage({ pathname, isPageNotFound });
   const Layout = getLayout(pathname);

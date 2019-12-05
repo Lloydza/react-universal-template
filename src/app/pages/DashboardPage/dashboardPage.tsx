@@ -17,20 +17,18 @@ interface DashboardPageProps {
   goToHomePage: () => void;
 }
 
-const DashboardPage = ({ user, currentRoute, goToHomePage }: DashboardPageProps): JSX.Element => {
-  return (
-    <div className={styles.container}>
-      <div>This is the Dashboard Page</div>
-      <div>
-        <h3>{`Current route: ${currentRoute}`}</h3>
-      </div>
-      <div>
-        <h3>Data is:</h3>
-        {JSON.stringify(user)}
-      </div>
-      <Button text="Go to the home page." onClick={goToHomePage} />
+const DashboardPage = ({ user, currentRoute, goToHomePage }: DashboardPageProps): JSX.Element => (
+  <div className={styles.container}>
+    <div>This is the Dashboard Page</div>
+    <div>
+      <h3>{`Current route: ${currentRoute}`}</h3>
     </div>
-  );
-};
+    <div>
+      <h3>Data is:</h3>
+      {JSON.stringify(user)}
+    </div>
+    <Button text="Go to the home page." onClick={goToHomePage} />
+  </div>
+);
 
 export default memo(DashboardPage);

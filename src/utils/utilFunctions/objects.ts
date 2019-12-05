@@ -1,5 +1,3 @@
-import clonedeep from 'lodash/cloneDeep';
-
 /**
  * Checks a given object to see if its empty
  * @param  {Object} obj : The object to check
@@ -10,13 +8,7 @@ export const isObjectEmpty = (obj: GenericObject): boolean => {
     return true;
   }
 
-  for (const key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      return false;
-    }
-  }
-
-  return true;
+  return Object.keys(obj).length === 0;
 };
 
 /**
@@ -29,21 +21,5 @@ export const numberOfProperties = (obj: GenericObject): number => {
     return 0;
   }
 
-  let count = 0;
-  for (const key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      count += 1;
-    }
-  }
-
-  return count;
-};
-
-/**
- * Deeply clones an object (complete independant new copy)
- * @param  {Object} objectToClone : The object to clone
- * @return {Object} : A new clone
- */
-export const deeplyCloneObject = (objectToClone: GenericObject | any[]): GenericObject | any[] => {
-  return clonedeep(objectToClone);
+  return Object.keys(obj).length;
 };

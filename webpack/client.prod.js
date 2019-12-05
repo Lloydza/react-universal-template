@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const WebpackBar = require('webpackbar');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -9,6 +10,7 @@ module.exports = {
   target: 'web',
   devtool: false,
   mode: 'production',
+  stats: false,
   resolve: {
     extensions: ['*', '.js', '.ts', '.tsx', '.json'],
     alias: {
@@ -69,6 +71,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new WebpackBar(),
     new webpack.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../src/server/index.html'),

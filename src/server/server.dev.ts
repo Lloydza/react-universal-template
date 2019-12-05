@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import fs from 'fs';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
@@ -25,7 +26,11 @@ const createServer = (): Koa => {
   koaServer.use(logger);
   koaServer.use(bodyParser());
   koaServer.use(serve('static'));
-  koaServer.use(webpackDevMiddleware(compiler));
+  koaServer.use(
+    webpackDevMiddleware(compiler, {
+      stats: false,
+    }),
+  );
   koaServer.use(webpackHotMiddleware(compiler));
   koaServer.use(router.routes());
   koaServer.use(router.allowedMethods());

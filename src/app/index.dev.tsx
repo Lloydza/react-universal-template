@@ -7,8 +7,8 @@ import { ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import 'app/content/styles/global.css';
 import { GRAPH_QL_URL } from 'utils/constants';
+import 'app/content/styles/global.css';
 import RouteHandler from './routeHandler/index';
 import configureStore from './store/configureStore';
 import getHistory from './store/history';
@@ -25,8 +25,8 @@ const client = new ApolloClient({
 const store = configureStore();
 const history = getHistory();
 
-const renderApp = (App: FunctionComponent<{ history: GenericObject }>): void => {
-  return render(
+const renderApp = (App: FunctionComponent<{ history: GenericObject }>): void =>
+  render(
     <ApolloProvider client={client}>
       <Provider store={store}>
         <App history={history} />
@@ -34,7 +34,6 @@ const renderApp = (App: FunctionComponent<{ history: GenericObject }>): void => 
     </ApolloProvider>,
     document.getElementById('root'),
   );
-};
 
 renderApp(RouteHandler);
 

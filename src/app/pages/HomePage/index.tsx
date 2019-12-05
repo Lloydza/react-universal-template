@@ -6,17 +6,13 @@ import HomePage from './homePage';
 
 const HomePageContainer = (): JSX.Element => {
   const dispatch = useDispatch();
-  const currentRoute = useSelector((state: ReduxState) => {
-    return state.history.currentRoute;
-  });
+  const currentRoute = useSelector((state: ReduxState) => state.history.currentRoute);
 
-  const isAppLoading = useSelector((state: ReduxState) => {
-    return state.app.isLoading;
-  });
+  const isAppLoading = useSelector((state: ReduxState) => state.app.isLoading);
 
-  const goToDashboardPage = useCallback(() => {
-    return dispatch(manageChangeRoute('/dashboard'));
-  }, [dispatch]);
+  const goToDashboardPage = useCallback(() => dispatch(manageChangeRoute('/dashboard')), [
+    dispatch,
+  ]);
 
   if (isAppLoading) {
     return <Loader />;

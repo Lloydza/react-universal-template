@@ -1,4 +1,5 @@
-const ENV_LEVEL: string = typeof ENVIRONMENT_LEVEL !== 'undefined' && ENVIRONMENT_LEVEL ? ENVIRONMENT_LEVEL : 'PROD';
+const ENV_LEVEL: string =
+  typeof ENVIRONMENT_LEVEL !== 'undefined' && ENVIRONMENT_LEVEL ? ENVIRONMENT_LEVEL : 'PROD';
 const IS_LOCAL_INSTANCE: boolean = typeof IS_LOCAL !== 'undefined' && IS_LOCAL ? IS_LOCAL : false;
 
 let BASE_DOMAIN;

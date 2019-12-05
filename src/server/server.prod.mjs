@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import fs from 'fs';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
@@ -6,7 +7,7 @@ import Router from 'koa-router';
 
 const createServer = () => {
   const router = new Router();
-  router.get('*', async (ctx) => {
+  router.get('*', async ctx => {
     ctx.type = 'html';
     ctx.body = fs.createReadStream('dist/static/index.html');
   });

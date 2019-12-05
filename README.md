@@ -1,15 +1,32 @@
-## Setup
+![tray.io](http://images.tray.io/static/brand/logos/on_white/logo.png)
 
-1.  Make sure you have [**Node**](https://docs.npmjs.com/getting-started/installing-node) installed.
-2.  Make sure you have [**Yarn**](https://yarnpkg.com/en/docs/getting-started) installed.
+# About the website app
 
-## To Run:
+The purpose of the repo is to server as the foundation boilerplate for any applications we are looking to spin up. It should have all the necessary tooling already installed.
 
-NOTE: you will need a graphql server running
+# Running the website app
 
-```In bash
+To run the app follow the steps:
+
+## Install Node & Yarn
+
+Before doing anything, you need `node.js` to be installed, follow the instructions for your OS here: https://nodejs.org/en/download/package-manager/ Check inside `package.json` under the `engine` key which version we use. you will also need `yarn`: https://yarnpkg.com/lang/en/.
+
+## Run the app
+
+```console
 yarn install
-yarn run dev
+yarn start
 ```
 
-The site should be running on http://localhost:3000
+Now the app should be running on http://localhost:3000
+
+## Production mode
+
+If you want to run the website in production mode locally, simply run `yarn run prod`. This is a combination of `yarn run build:prod` and `yarn run start:prod` which builds the production files, then runs them using a local server respectively.
+
+## Other notable commands
+
+- `yarn run test` to test
+- `yarn run lint` to lint
+- `yarn run storybook` to run storybook

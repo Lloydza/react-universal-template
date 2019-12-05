@@ -78,13 +78,12 @@ export const isValidPassword = (value: string): boolean => {
  * Promisifies setTimeout(), to allow it to be added to a promise chain.
  * @param  {BigInteger} milliseconds : The milliseconds to wait for
  */
-export const waitSetTime = (milliseconds: number): Promise<void> => {
-  return new Promise((resolve: () => void) => {
+export const waitSetTime = (milliseconds: number): Promise<void> =>
+  new Promise((resolve: () => void) => {
     setTimeout(() => {
       resolve();
     }, milliseconds);
   });
-};
 
 /**
  * Throws an error manually

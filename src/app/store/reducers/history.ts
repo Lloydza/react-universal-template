@@ -11,8 +11,8 @@ export const defaultState = (): HistoryState => {
   return { stack: [], currentRoute, currentQueryParams };
 };
 
-export default (state: HistoryState = defaultState(), action: ReduxAction): HistoryState => {
-  return produce(state, (draft: HistoryState) => {
+export default (state: HistoryState = defaultState(), action: ReduxAction): HistoryState =>
+  produce(state, (draft: HistoryState) => {
     switch (action.type) {
       case actions.CHANGE_ROUTE: {
         if (state.currentRoute === action.newPathname) {
@@ -31,11 +31,12 @@ export default (state: HistoryState = defaultState(), action: ReduxAction): Hist
         }
 
         draft.stack.pop();
-        draft.currentRoute = draft.stack.length > 0 ? draft.stack[draft.stack.length - 1].route : '/';
-        draft.currentQueryParams = draft.stack.length > 0 ? draft.stack[draft.stack.length - 1].queryParams : {};
+        draft.currentRoute =
+          draft.stack.length > 0 ? draft.stack[draft.stack.length - 1].route : '/';
+        draft.currentQueryParams =
+          draft.stack.length > 0 ? draft.stack[draft.stack.length - 1].queryParams : {};
         return draft;
       default:
         return state;
     }
   });
-};

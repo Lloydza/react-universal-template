@@ -1,0 +1,15 @@
+"linters": {
+    "*.{js,jsm,ts,tsx}": [
+        "prettier --write",
+        "tslint --fix",
+        "git add"
+    ],
+    "*.css": [
+        "stylelint",
+        "git add"
+    ]
+}
+"ignore": [
+    "node_modules/*",
+    "dist/*"
+]

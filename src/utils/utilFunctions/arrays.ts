@@ -1,4 +1,4 @@
-import { deeplyCloneObject } from './objects';
+import clonedeep from 'lodash/cloneDeep';
 
 /**
  * Finds the index of an item in an array. The default array.findIndex() is unsupported on some browsers
@@ -55,8 +55,8 @@ export const removeItemFromArray = (arr: any[], index: number): any[] => {
     return arr;
   }
 
-  const beginningArray = deeplyCloneObject(arr.slice(0, index));
-  const afterArray = deeplyCloneObject(arr.slice(index + 1));
+  const beginningArray = clonedeep(arr.slice(0, index));
+  const afterArray = clonedeep(arr.slice(index + 1));
   return beginningArray.concat(afterArray);
 };
 
@@ -72,9 +72,9 @@ export const replaceItemInArray = (arr: any[], index: number, item: any): any[] 
     return arr;
   }
 
-  const beginningArray = deeplyCloneObject(arr.slice(0, index));
-  const updatedItem = deeplyCloneObject(item);
-  const afterArray = deeplyCloneObject(arr.slice(index + 1));
+  const beginningArray = clonedeep(arr.slice(0, index));
+  const updatedItem = clonedeep(item);
+  const afterArray = clonedeep(arr.slice(index + 1));
   return beginningArray.concat(updatedItem).concat(afterArray);
 };
 
@@ -85,12 +85,16 @@ export const replaceItemInArray = (arr: any[], index: number, item: any): any[] 
  * @param  {BigInteger} newItemIndex : The index of the item for its new position
  * @return {Array} : The reordered array
  */
-export const moveItemInArray = (arr: any[], currentItemIndex: number, newItemIndex: number): any[] => {
+export const moveItemInArray = (
+  arr: any[],
+  currentItemIndex: number,
+  newItemIndex: number,
+): any[] => {
   if (!arr || !arr[currentItemIndex] || !arr[newItemIndex]) {
     return arr;
   }
-  const newArr = deeplyCloneObject(arr);
+  const newArr = clonedeep(arr);
   const item = newArr.splice(currentItemIndex, 1)[0];
   newArr.splice(newItemIndex, 0, item);
-  return newArr as any[];
+  return newArr;
 };

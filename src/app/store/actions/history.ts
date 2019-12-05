@@ -14,21 +14,19 @@ export const [changeRoute, previousRoute] = createReduxActions(
  * Navigates the forward to the route if required, and/or shows confirm modal
  * @param  {String} newPathname : The new route
  */
-export const manageChangeRoute = (newPathname: string) => {
-  return (dispatch: Dispatch): void => {
-    dispatch(updateAppIsPageNotFound(false));
+export const manageChangeRoute = (newPathname: string) => (dispatch: Dispatch): void => {
+  dispatch(updateAppIsPageNotFound(false));
 
-    const history = getHistory();
-    const currentPathname = history.location.pathname + history.location.search;
+  const history = getHistory();
+  const currentPathname = history.location.pathname + history.location.search;
 
-    if (newPathname === currentPathname) {
-      return;
-    }
+  if (newPathname === currentPathname) {
+    return;
+  }
 
-    history.push(newPathname);
-    dispatch(changeRoute(newPathname));
-    dispatch(setPageTitle(newPathname));
-  };
+  history.push(newPathname);
+  dispatch(changeRoute(newPathname));
+  dispatch(setPageTitle(newPathname));
 };
 
 /**
@@ -42,12 +40,13 @@ export interface ManagePreviousRouteOptions {
   newPathname: string;
   newSearch: string;
 }
-export const managePreviousRoute = ({ newPathname }: ManagePreviousRouteOptions, onSuccess: () => void) => {
-  return (dispatch: Dispatch): void => {
-    // If you are not wanting to nav back but instead show a warning for this route (for example),
-    // then you wouldn't call the below until the user clicks okay
-    dispatch(previousRoute());
-    dispatch(setPageTitle(newPathname));
-    onSuccess();
-  };
+export const managePreviousRoute = (
+  { newPathname }: ManagePreviousRouteOptions,
+  onSuccess: () => void,
+) => (dispatch: Dispatch): void => {
+  // If you are not wanting to nav back but instead show a warning for this route (for example),
+  // then you wouldn't call the below until the user clicks okay
+  dispatch(previousRoute());
+  dispatch(setPageTitle(newPathname));
+  onSuccess();
 };

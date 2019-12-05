@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import Koa from 'koa';
 
 // Logs all http requests

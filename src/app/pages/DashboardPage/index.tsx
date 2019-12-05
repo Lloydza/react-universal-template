@@ -24,17 +24,11 @@ const MY_QUERY = gql`
 
 const DashboardPageContainer = (): JSX.Element => {
   const dispatch = useDispatch();
-  const currentRoute = useSelector((state: ReduxState) => {
-    return state.history.currentRoute;
-  });
+  const currentRoute = useSelector((state: ReduxState) => state.history.currentRoute);
 
-  const isAppLoading = useSelector((state: ReduxState) => {
-    return state.app.isLoading;
-  });
+  const isAppLoading = useSelector((state: ReduxState) => state.app.isLoading);
 
-  const goToHomePage = useCallback(() => {
-    return dispatch(manageChangeRoute('/'));
-  }, [dispatch]);
+  const goToHomePage = useCallback(() => dispatch(manageChangeRoute('/')), [dispatch]);
 
   const { loading, error, data, refetch } = useQuery(MY_QUERY, {
     variables: {
@@ -44,7 +38,7 @@ const DashboardPageContainer = (): JSX.Element => {
 
   const retry = useCallback(() => {
     refetch();
-  }, []);
+  }, [refetch]);
 
   if (isAppLoading || loading) {
     return <Loader />;

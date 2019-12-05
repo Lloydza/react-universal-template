@@ -3,16 +3,14 @@ import produce from 'immer';
 import * as actions from 'app/store/actions';
 import { DEFAULT_META } from 'utils/constants';
 
-export const defaultState = (): AppState => {
-  return {
-    isLoading: false,
-    isPageNotFound: false,
-    pageTitle: DEFAULT_META.TITLE,
-  };
-};
+export const defaultState = (): AppState => ({
+  isLoading: false,
+  isPageNotFound: false,
+  pageTitle: DEFAULT_META.TITLE,
+});
 
-const appReducer = (state: AppState = defaultState(), action: ReduxAction): AppState => {
-  return produce(state, (draft: AppState) => {
+const appReducer = (state: AppState = defaultState(), action: ReduxAction): AppState =>
+  produce(state, (draft: AppState) => {
     switch (action.type) {
       case actions.UPDATE_APP_IS_LOADING:
         if (state.isLoading === action.isLoading) {
@@ -38,6 +36,5 @@ const appReducer = (state: AppState = defaultState(), action: ReduxAction): AppS
         return state;
     }
   });
-};
 
 export default appReducer;
