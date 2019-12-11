@@ -1,5 +1,4 @@
 /* eslint global-require: 0 */
-import 'react-hot-loader';
 import React, { FunctionComponent } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
