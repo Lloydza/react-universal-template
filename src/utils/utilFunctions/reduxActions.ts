@@ -10,7 +10,7 @@ type ActionParam = string | ActionCreator;
  * Creates a bunch of redux action functions to be exported
  * @param {Array} actions The actions
  */
-const createReduxActions = (...args: ActionParam[]): ((...args: any[]) => void)[] => {
+export const createReduxActions = (...args: ActionParam[]): ((...args: any[]) => void)[] => {
   if (args.length === 0) {
     return null;
   }
@@ -51,8 +51,4 @@ const createReduxAction = (action: ActionParam): ((...args: any[]) => void) => {
 
     return actionObj;
   };
-};
-
-export default {
-  createReduxActions,
 };

@@ -225,6 +225,7 @@ module.exports = {
     'import/no-unresolved': ['error', { commonjs: true }],
     'import/named': 'error',
     'import/no-cycle': 'off',
+    'import/prefer-default-export': 'off',
     'import/default': 'error',
     'import/namespace': 'error',
     'import/export': 'error',

@@ -4,7 +4,7 @@
  * @param {Date} dateTwo The second date
  * @return {BigInteger} The difference in minutes
  */
-const getDateDifferenceInMinutes = (dateOne: Date, dateTwo: Date): number => {
+export const getDateDifferenceInMinutes = (dateOne: Date, dateTwo: Date): number => {
   if (!dateOne || !dateTwo) {
     return null;
   }
@@ -31,8 +31,4 @@ const getDateDifferenceInMinutes = (dateOne: Date, dateTwo: Date): number => {
   const milliseconds = Math.abs(<any>first - <any>second);
   const minutes = Math.floor(milliseconds / 1000 / 60);
   return minutes;
-};
-
-export default {
-  getDateDifferenceInMinutes,
 };
