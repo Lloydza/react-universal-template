@@ -13,7 +13,7 @@
   },
   "scripts": {
     "commit": "git cz",
-    "build:prod": "yarn run clean && cross-env NODE_ENV=production webpack -p --config webpack/client.prod.js && cp -rT static dist/static",
+    "build:prod": "yarn run clean && cross-env NODE_ENV=production webpack && cp -rT static dist/static",
     "start:prod": "cross-env NODE_ENV=production node --experimental-modules src/server/server.prod.mjs",
     "prod": "yarn run build:prod && yarn run start:prod",
     "start": "yarn run clean && cross-env ENVIRONMENT_LEVEL=DEV IS_LOCAL=true NODE_ENV=development ts-node-dev --no-deprecation --respawn --transpileOnly -r tsconfig-paths/register src/server/server.dev.ts",

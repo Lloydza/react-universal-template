@@ -8,7 +8,7 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'koa-webpack-dev-middleware';
 import webpackHotMiddleware from 'koa-webpack-hot-middleware';
 import logger from './middleware/logger';
-import clientConfig from '../../webpack/client.dev';
+import clientConfig from '../../webpack.config';
 
 const compiler = webpack(clientConfig);
 

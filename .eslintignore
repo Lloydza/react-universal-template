@@ -1,5 +1,5 @@
 dist/*
-webpack/*
 static/*
 
+webpack.config.js
 commitlint.config.js
