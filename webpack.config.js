@@ -11,11 +11,11 @@ const isLocal = process.env.IS_LOCAL || false;
 const isProd = environment === 'PROD';
 
 const entry = isProd
-  ? [path.resolve(__dirname, './src/app/index.prod.tsx')]
+  ? [path.resolve(__dirname, './src/app/index.tsx')]
   : [
       'react-hot-loader/patch',
       'webpack-hot-middleware/client?noInfo=true',
-      path.resolve(__dirname, './src/app/index.dev.tsx'),
+      path.resolve(__dirname, './src/app/index.tsx'),
     ];
 
 const plugins = [

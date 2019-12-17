@@ -1,3 +1,4 @@
+/* eslint global-require: 0 */
 import React, { FunctionComponent } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -5,8 +6,8 @@ import { ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { GRAPH_QL_URL, IS_PROD } from 'utils/constants';
 import 'app/content/styles/global.css';
-import { GRAPH_QL_URL } from 'utils/constants';
 import RouteHandler from './routeHandler/index';
 import configureStore from './store/configureStore';
 import getHistory from './store/history';
@@ -34,3 +35,10 @@ const renderApp = (App: FunctionComponent<{ history: GenericObject }>): void =>
   );
 
 renderApp(RouteHandler);
+
+if (!IS_PROD && module && module.hot) {
+  module.hot.accept(['./routeHandler'], () => {
+    const NewRouteHandler = require('./routeHandler/index').default;
+    renderApp(NewRouteHandler);
+  });
+}
