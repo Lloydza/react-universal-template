@@ -1,6 +1,11 @@
 const ENV_LEVEL: string =
-  typeof ENVIRONMENT_LEVEL !== 'undefined' && ENVIRONMENT_LEVEL ? ENVIRONMENT_LEVEL : 'PROD';
-const IS_LOCAL_INSTANCE: boolean = typeof IS_LOCAL !== 'undefined' && IS_LOCAL ? IS_LOCAL : false;
+  typeof process.env.ENVIRONMENT_LEVEL !== 'undefined' && process.env.ENVIRONMENT_LEVEL
+    ? process.env.ENVIRONMENT_LEVEL
+    : 'PROD';
+const IS_LOCAL_INSTANCE: boolean =
+  typeof process.env.IS_LOCAL !== 'undefined' && process.env.IS_LOCAL
+    ? process.env.IS_LOCAL === 'true'
+    : false;
 
 let BASE_DOMAIN;
 if (ENV_LEVEL === 'PROD') {

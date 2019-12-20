@@ -5,6 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const TerserPlugin = require('terser-webpack-plugin');
 
 const environment = process.env.ENVIRONMENT_LEVEL || 'PROD';
 const isLocal = process.env.IS_LOCAL || false;
@@ -28,17 +30,21 @@ const plugins = [
     filename: isProd ? 'styles.[chunkhash].css' : 'styles.css',
   }),
   new webpack.DefinePlugin({
-    ENVIRONMENT_LEVEL: environment,
-    IS_LOCAL: isLocal,
+    'process.env': {
+      ENVIRONMENT_LEVEL: JSON.stringify(environment),
+      IS_LOCAL: JSON.stringify(isLocal),
+    },
   }),
 ];
 
 if (isProd) {
   plugins.push(new webpack.HashedModuleIdsPlugin());
   plugins.push(new OptimizeCssAssetsPlugin());
+  plugins.push(new webpack.optimize.AggressiveMergingPlugin());
 } else {
   plugins.push(new webpack.HotModuleReplacementPlugin());
   plugins.push(new WriteFilePlugin());
+  plugins.push(new ImageminPlugin({ disable: false, optipng: null }));
 }
 
 module.exports = {
@@ -71,7 +77,7 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              hmr: isProd ? false : true,
+              hmr: !isProd,
             },
           },
           {
@@ -88,7 +94,7 @@ module.exports = {
               config: {
                 path: path.resolve(__dirname, './.postcssrc'),
               },
-              sourceMap: isProd ? false : true,
+              sourceMap: !isProd,
             },
           },
         ],
@@ -108,7 +114,21 @@ module.exports = {
   },
   plugins,
   optimization: {
-    minimize: isProd ? true : false,
+    minimize: isProd,
+    minimizer: isProd
+      ? [
+          new TerserPlugin({
+            test: /\.js(\?.*)?$/i,
+            cache: true,
+            parallel: true,
+            terserOptions: {
+              output: {
+                comments: false,
+              },
+            },
+          }),
+        ]
+      : [],
     splitChunks: {
       cacheGroups: {
         commons: {
