@@ -11,13 +11,13 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "paths": {
-      "app": ["src/app"],
-      "tests": ["src/test"],
-      "types": ["src/types"],
-      "utils": ["src/utils"]
+      "app": ["../src/app"],
+      "tests": ["../src/test"],
+      "types": ["../src/types"],
+      "utils": ["../src/utils"]
     },
     "lib": ["dom", "es5", "es6"]
   },
   "include": ["src/app"],
-  "exclude": ["node_modules/", "dist/", "src/server"]
+  "exclude": ["../node_modules/", "../dist/", "../src/server"]
 }
