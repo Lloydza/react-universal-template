@@ -18,7 +18,6 @@ interface ClientStats {
 
 declare namespace NodeJS {
   interface Global {
-    fetch?: (...args: any[]) => any;
     window: {
       envLevel?: number;
       isLocal?: boolean;
