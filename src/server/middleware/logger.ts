@@ -1,11 +1,11 @@
 /* eslint no-console: 0 */
-import Koa from 'koa';
+import Express from 'express';
 
 // Logs all http requests
-const logger = async (ctx: Koa.Context, next: Koa.Next): Promise<void> => {
+const logger = (req: Express.Request, res: Express.Response, next: Express.NextFunction): void => {
   try {
-    console.log(new Date(), ctx.method, ctx.url);
-    await next();
+    console.log(new Date(), req.method, req.url);
+    next();
   } catch (error) {
     console.error(error);
   }

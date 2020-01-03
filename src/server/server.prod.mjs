@@ -1,24 +1,19 @@
 /* eslint no-console: 0 */
-import fs from 'fs';
-import Koa from 'koa';
-import bodyParser from 'koa-bodyparser';
-import serve from 'koa-static';
-import Router from 'koa-router';
+import Express from 'express';
 
 const createServer = () => {
-  const router = new Router();
-  router.get('*', async ctx => {
-    ctx.type = 'html';
-    ctx.body = fs.createReadStream('dist/static/index.html');
+  const serverInstance = Express();
+  serverInstance.use(Express.static('dist/static', { maxAge: 365 * 24 * 60 * 60 * 1000 }));
+
+  serverInstance.get('*', (req, res) => {
+    res.sendFile('index.html', { root: 'dist' }, err => {
+      if (err) {
+        console.log(`An error occured: ${err.status}`);
+      }
+    });
   });
 
-  const koaServer = new Koa();
-  koaServer.use(bodyParser());
-  koaServer.use(serve('dist/static'));
-  koaServer.use(router.routes());
-  koaServer.use(router.allowedMethods());
-
-  return koaServer;
+  return serverInstance;
 };
 
 const server = createServer();

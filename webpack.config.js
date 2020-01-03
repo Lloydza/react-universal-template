@@ -23,6 +23,7 @@ const entry = isProd
 const plugins = [
   new WebpackBar(),
   new HtmlWebpackPlugin({
+    filename: '../index.html',
     template: path.resolve(__dirname, './src/server/index.html'),
   }),
   new webpack.NoEmitOnErrorsPlugin(),

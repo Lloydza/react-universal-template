@@ -1,41 +1,37 @@
 /* eslint no-console: 0 */
-import fs from 'fs';
-import Koa from 'koa';
-import bodyParser from 'koa-bodyparser';
-import serve from 'koa-static';
-import Router from 'koa-router';
+import path from 'path';
+import Express from 'express';
 import webpack from 'webpack';
-import webpackDevMiddleware from 'koa-webpack-dev-middleware';
-import webpackHotMiddleware from 'koa-webpack-hot-middleware';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 import logger from './middleware/logger';
 import clientConfig from '../../webpack.config';
 
 const compiler = webpack(clientConfig);
+const distPath = path.resolve(__dirname, '../../dist');
 
-const createServer = (): Koa => {
-  const router = new Router();
-  router.get(
-    '*',
-    async (ctx: Koa.Context): Promise<void> => {
-      ctx.type = 'html';
-      ctx.body = fs.createReadStream('dist/static/index.html');
-    },
-  );
+const createServer = (): Express.Application => {
+  const serverInstance = Express();
+  serverInstance.use(logger);
+  serverInstance.use(Express.static('static', { maxAge: 365 * 24 * 60 * 60 * 1000 }));
+  serverInstance.use(Express.static('dist/static', { maxAge: 365 * 24 * 60 * 60 * 1000 }));
 
-  const koaServer = new Koa();
-  koaServer.use(logger);
-  koaServer.use(bodyParser());
-  koaServer.use(serve('static'));
-  koaServer.use(
+  serverInstance.use(
     webpackDevMiddleware(compiler, {
       stats: false,
     }),
   );
-  koaServer.use(webpackHotMiddleware(compiler));
-  koaServer.use(router.routes());
-  koaServer.use(router.allowedMethods());
+  serverInstance.use(webpackHotMiddleware(compiler));
 
-  return koaServer;
+  serverInstance.get('*', (req: Express.Request, res: Express.Response) => {
+    res.sendFile('index.html', { root: distPath }, (err: any) => {
+      if (err) {
+        console.log(`An error occured: ${err.status}`);
+      }
+    });
+  });
+
+  return serverInstance;
 };
 
 const server = createServer();
